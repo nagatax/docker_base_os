@@ -10,9 +10,6 @@ USER root
 # GPG keyの設定
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
-# 開発環境に必要なツールのインストール
-RUN yum -y install wget
-
 ##################################################
 # gccのインストール
 ##################################################
@@ -22,7 +19,8 @@ ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.xz"
 ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/${GCC}/releases/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
 
-RUN cd "${SRC_DIR}" \
+RUN yum -y install wget bzip2 \
+    && cd "${SRC_DIR}" \
     && wget "${GCC_URL}" \
     && tar xvf "${GCC_PAKAGE_FILE}" \
     && cd "${GCC_PAKAGE}" \
