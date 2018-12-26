@@ -25,7 +25,7 @@ RUN yum -y install wget bzip2 \
     && tar xvf "${GCC_PAKAGE_FILE}" \
     && cd "${GCC_PAKAGE}" \
     && ./contrib/download_prerequisites \
-    && ./configure --enable-languages=c,c++ --prefix="${INSTALL_DIR}" --disable=multilib \
+    && ./configure --enable-languages=c,c++ --prefix="${INSTALL_DIR}" --disable-multilib \
     && make -j`nproc` \
     && make install \
     && rm -rf "${SRC_DIR}/${GCC_PAKAGE}"
