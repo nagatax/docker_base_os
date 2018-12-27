@@ -26,7 +26,7 @@ RUN yum -y install wget bzip2 gcc autoconf automake make \
     && wget "${GMP_URL}" \
     && tar xvf "${GMP_PAKAGE_FILE}" \
     && cd "${GMP_PAKAGE}" \
-    && ./configure --prefix="${INSTALL_DIR}/${GMP_PAKAGE}" \
+    && ./configure --prefix="${INSTALL_DIR}/${GMP_PAKAGE}" --enable-cxx \
     && make -j`nproc` \
     && make install \
     && ln -s "${INSTALL_DIR}/${GMP_PAKAGE}" "${INSTALL_DIR}/${GMP}" \
@@ -39,12 +39,12 @@ ENV ISL_PAKAGE="${ISL}-${ISL_VERSION}"
 ENV ISL_PAKAGE_FILE="${ISL_PAKAGE}.tar.bz2"
 ENV ISL_URL="ftp://gcc.gnu.org/pub/gcc/infrastructure/${ISL_PAKAGE_FILE}"
 
-RUN yum -y install wget bzip2 gcc \
+RUN yum -y install wget bzip2 gcc file \
     && cd "${SRC_DIR}" \
     && wget "${ISL_URL}" \
     && tar xvf "${ISL_PAKAGE_FILE}" \
     && cd "${ISL_PAKAGE}" \
-    && ./configure --prefix="${INSTALL_DIR}/${ISL_PAKAGE}" --with-gmp-prefix="${INSTALL_DIR}/${GMP}" \
+    && ./configure --prefix="${INSTALL_DIR}/${ISL_PAKAGE}" --with-gmp="${INSTALL_DIR}/${GMP}" \
     && make -j`nproc` \
     && make install \
     && ln -s "${INSTALL_DIR}/${ISL_PAKAGE}" "${INSTALL_DIR}/${ISL}" \
