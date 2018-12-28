@@ -27,7 +27,8 @@ ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
 ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
 
-RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool \
+RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool texinfo \
+    && mkdir "${INSTALL_DIR}/${GCC_PAKAGE}" \
     && cd "${SRC_DIR}" \
     && wget "${GCC_URL}" \
     && tar xvf "${GCC_PAKAGE_FILE}" \
@@ -43,7 +44,9 @@ RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file 
     && make -j`nproc` |& tee make.log \
     && make install \
     && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
+    && libtool --finish "${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
+    && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \
     && echo "${INSTALL_DIR}/${GCC}/lib" >> /etc/ld.so.conf.d/gcc.conf \
     && ldconfig \
     && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
