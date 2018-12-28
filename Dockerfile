@@ -72,14 +72,16 @@ RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file 
     && tar xvf "${GCC_PAKAGE_FILE}" \
     && cd "${GCC_PAKAGE}" \
     && ./contrib/download_prerequisites \
-    && ./configure \
+    && mkdir "${SRC_DIR}/${GCC_PAKAGE}_build" \
+    && cd "${SRC_DIR}/${GCC_PAKAGE}_build" \
+    && "${SRC_DIR}/${GCC_PAKAGE}/configure" \
         --enable-languages=c,c++ \
         --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
         --disable-multilib \
         --disable-bootstrap \
-    && make -j`nproc` \
+    && make -j`nproc` |& tee make.log \
     && make install \
     && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
     && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${GCC}/bin" >> ~/.bashrc \
-    && echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}'":${INSTALL_DIR}/${GCC}/lib" >> ~/.bashrc
-#    && rm -rf "${SRC_DIR}/${GCC_PAKAGE}"
+    && echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}'":${INSTALL_DIR}/${GCC}/lib" >> ~/.bashrc \
+    && rm -rf "${SRC_DIR}/${GCC_PAKAGE}"
