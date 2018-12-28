@@ -21,7 +21,7 @@ ENV GMP_PAKAGE="${GMP}-${GMP_VERSION}"
 ENV GMP_PAKAGE_FILE="${GMP_PAKAGE}.tar.bz2"
 ENV GMP_URL="ftp://gcc.gnu.org/pub/gcc/infrastructure/${GMP_PAKAGE_FILE}"
 
-RUN yum -y install wget bzip2 gcc autoconf automake make \
+RUN yum -y install wget bzip2 gcc gcc-c++ autoconf automake make file libtool \
     && cd "${SRC_DIR}" \
     && wget "${GMP_URL}" \
     && tar xvf "${GMP_PAKAGE_FILE}" \
@@ -40,11 +40,12 @@ ENV ISL_PAKAGE_FILE="${ISL_PAKAGE}.tar.bz2"
 ENV ISL_URL="ftp://gcc.gnu.org/pub/gcc/infrastructure/${ISL_PAKAGE_FILE}"
 
 RUN yum -y install wget bzip2 gcc file \
+    && mkdir "${INSTALL_DIR}/${ISL_PAKAGE}" \
     && cd "${SRC_DIR}" \
     && wget "${ISL_URL}" \
     && tar xvf "${ISL_PAKAGE_FILE}" \
     && cd "${ISL_PAKAGE}" \
-    && ./configure --prefix="${INSTALL_DIR}/${ISL_PAKAGE}" --with-gmp="${INSTALL_DIR}/${GMP}" \
+    && ./configure --prefix="${INSTALL_DIR}/${ISL_PAKAGE}" --with-gmp-prefix="${INSTALL_DIR}/${GMP}" \
     && make -j`nproc` \
     && make install \
     && ln -s "${INSTALL_DIR}/${ISL_PAKAGE}" "${INSTALL_DIR}/${ISL}" \
