@@ -34,7 +34,7 @@ RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file 
     && tar xvf "${GCC_PAKAGE_FILE}" \
     && cd "${GCC_PAKAGE}" \
     && ./contrib/download_prerequisites \
-    && mkdir "${BUILD_DIR}/${GCC_PAKAGE}" \
+    && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
     && cd "${BUILD_DIR}/${GCC_PAKAGE}" \
     && "${SRC_DIR}/${GCC_PAKAGE}/configure" \
         --enable-languages=c,c++ \
