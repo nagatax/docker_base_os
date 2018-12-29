@@ -13,7 +13,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 ##################################################
 # gccのインストール
-# 
+#
 # options
 #   --enable-languages: インストールするプログラミング言語を指定。デフォルトはC, C++, Objective-C, Fortran, Java。
 #   --disable-multilib: 32bitライブラリを探さない。

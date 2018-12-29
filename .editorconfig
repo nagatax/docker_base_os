@@ -1,0 +1,18 @@
+# 現在のディレクトリ位置をrootとする
+root = true
+
+# 全てのファイルに対する設定
+[*]
+# 改行コード
+end_of_line = lf
+# 文字コード
+charset = utf-8
+# ファイル末尾に空行を追加する
+insert_final_newline = true
+# 行末尾の空白文字を削除する
+trim_trailing_whitespace = true
+insert_final_newline = true
+# インデント指定
+indent_style = space
+# インデントの幅
+indent_size = 2
