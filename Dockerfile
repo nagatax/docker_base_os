@@ -50,4 +50,3 @@ RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file 
     && echo "${INSTALL_DIR}/${GCC}/lib" >> /etc/ld.so.conf.d/gcc.conf \
     && ldconfig \
     && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
-
