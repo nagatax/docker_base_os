@@ -49,4 +49,4 @@ RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file 
     && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \
     && echo "${INSTALL_DIR}/${GCC}/lib" >> /etc/ld.so.conf.d/gcc.conf \
     && ldconfig \
-    && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
+    && rm -rf "${BUILD_DIR}/${GCC_PAKAGE}" "${SRC_DIR}/${GCC_PAKAGE}" "${SRC_DIR}/${GCC_PAKAGE_FILE}"
