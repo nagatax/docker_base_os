@@ -62,7 +62,7 @@ RUN set -x; \
     && ldconfig \
     && : "不要なファイルを削除する" \
     && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then \
-        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${SRC_DIR}/${GCC_PAKAGE}" "${BUILD_DIR}/${GCC_PAKAGE}" ; \
-       else \
         rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" ; \
+       else \
+        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${SRC_DIR}/${GCC_PAKAGE}" "${BUILD_DIR}/${GCC_PAKAGE}" ; \
        fi
