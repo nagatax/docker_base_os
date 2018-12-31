@@ -37,7 +37,8 @@ ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
 ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
 
-RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool texinfo \
+RUN set -x; \
+    yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool texinfo \
     && mkdir "${INSTALL_DIR}/${GCC_PAKAGE}" \
     && cd "${SRC_DIR}" \
     && wget "${GCC_URL}" \
