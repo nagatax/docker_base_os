@@ -1,5 +1,15 @@
 FROM centos:7
 
+##################################################
+# 実行環境の設定
+#  hooks/buildファイルで設定
+ARG IS_DEVELOPMENT="false"
+##################################################
+
+##################################################
+# 共通処理
+##################################################
+
 # 共通の設定
 ENV SRC_DIR="/usr/local/src"
 ENV INSTALL_DIR="/usr/local"
@@ -27,7 +37,8 @@ ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
 ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
 
-RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool texinfo \
+RUN set -x; \
+    yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool texinfo \
     && mkdir "${INSTALL_DIR}/${GCC_PAKAGE}" \
     && cd "${SRC_DIR}" \
     && wget "${GCC_URL}" \
@@ -49,4 +60,9 @@ RUN yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file 
     && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \
     && echo "${INSTALL_DIR}/${GCC}/lib" >> /etc/ld.so.conf.d/gcc.conf \
     && ldconfig \
-    && rm -rf "${BUILD_DIR}/${GCC_PAKAGE}" "${SRC_DIR}/${GCC_PAKAGE}" "${SRC_DIR}/${GCC_PAKAGE_FILE}"
+    && : "不要なファイルを削除する" \
+    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then \
+        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" ; \
+       else \
+        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${SRC_DIR}/${GCC_PAKAGE}" "${BUILD_DIR}/${GCC_PAKAGE}" ; \
+       fi
