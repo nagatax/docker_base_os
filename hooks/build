@@ -6,5 +6,5 @@ set -eu
 #  false:本番環境
 IS_DEVELOPMENT="true"
 
-# dockerイメージのブルド
-docker build --build-arg IS_DEVELOPMENT=${IS_DEVELOPMENT} -t $IMAGE_NAME .
+# dockerイメージのビルド
+docker build --build-arg IS_DEVELOPMENT=${IS_DEVELOPMENT} -t ${IMAGE_NAME} .
