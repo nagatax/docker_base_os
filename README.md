@@ -1,6 +1,10 @@
 # Description of base_os image
 
-[![see https://hub.docker.com/r/nagatax/base_os](http://dockeri.co/image/nagatax/base_os)](https://hub.docker.com/r/nagatax/base_os)
+[![image information](https://dockeri.co/image/nagatax/base_os)](https://hub.docker.com/r/nagatax/base_os)
+
+![automated](https://img.shields.io/docker/automated/nagatax/base_os.svg)
+![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fbase_os.svg)
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 ## Overview
 
