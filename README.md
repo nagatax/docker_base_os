@@ -1,5 +1,7 @@
 # Description of base_os image
 
+[![see https://hub.docker.com/r/nagatax/base_os](http://dockeri.co/image/nagatax/base_os)](https://hub.docker.com/r/nagatax/base_os)
+
 ## Overview
 
 Centos7の最新版をベースに下記のソフトウェアをインストールしています。
@@ -11,8 +13,6 @@ the base_os:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
-[![see https://hub.docker.com/r/nagatax/base_os](http://dockeri.co/image/nagatax/base_os)](https://hub.docker.com/r/nagatax/base_os)
-
 - [`latest` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/master/Dockerfile)
 - [`0.0.1-dev` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/0.0.1-dev/Dockerfile)
 
@@ -22,7 +22,7 @@ the base_os:latest tag is always the most recent version currently available.
   [GitHub](https://github.com/nagatax/docker_base_os/issues)
 
 - Maintained by:  
-  [nagatax](https://hub.docker.com/u/nagatax)
+  [nagatax](https://github.com/nagatax)
 
 - Supported architectures:  
   `amd64`
@@ -40,4 +40,4 @@ docker pull nagatax/base_os:latest
 
 ## License
 
-[MIT](https://github.com/nagatax/docker_base_os/blob/master/LICENSE)
+This software is released under the MIT License, see [LICENSE](https://github.com/nagatax/docker_base_os/blob/master/LICENSE).
