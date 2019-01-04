@@ -30,6 +30,9 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 #   --disable-bootstrap: bootstrapビルドを実施しない。bootstrapビルドはコンパイルを3回実施し、検証を行う。
 # commands
 #   download_prerequisites:コンパイルに必要なパッケージ(gmp/mpfr/mpc/isl)をダウンロードする。
+# note
+#   "make check"を実行するときはdockerを特権モード(--privileged)にする。
+#   (asanの試験結果がFAILになる)
 ##################################################
 ENV GCC="gcc"
 ENV GCC_VERSION="7.4.0"
