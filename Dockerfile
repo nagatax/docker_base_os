@@ -43,7 +43,7 @@ ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/$
 RUN set -x; \
        : "関連パッケージのインストール" \
     && yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool \
-        gettext gperf dejagnu autogen flex texinfo patch \
+        gettext gperf dejagnu autogen flex texinfo patch zlib-devel \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
     && mkdir -p "${INSTALL_DIR}/${GCC_PAKAGE}" \
@@ -55,10 +55,12 @@ RUN set -x; \
     && ./contrib/download_prerequisites \
     && cd "${BUILD_DIR}/${GCC_PAKAGE}" \
     && "${SRC_DIR}/${GCC_PAKAGE}/configure" \
-        --enable-languages=c,c++ \
         --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
+        --enable-languages=c,c++ \
         --disable-multilib \
         --disable-bootstrap \
+#        --enable-bootstrap \
+        --with-system-zlib \
     && make -j`nproc` |& tee make.log \
 #    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then make check |& tee make_check.log; fi \
     && make install \
