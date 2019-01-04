@@ -33,6 +33,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # note
 #   "make check"を実行するときはdockerを特権モード(--privileged)にする。
 #   (asanの試験結果がFAILになる)
+#   また、試験中にスタック領域が不足するため、ulimitコマンドでスタック領域を拡張する。
 ##################################################
 ENV GCC="gcc"
 ENV GCC_VERSION="7.4.0"
