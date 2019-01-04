@@ -30,6 +30,9 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 #   --disable-bootstrap: bootstrapビルドを実施しない。bootstrapビルドはコンパイルを3回実施し、検証を行う。
 # commands
 #   download_prerequisites:コンパイルに必要なパッケージ(gmp/mpfr/mpc/isl)をダウンロードする。
+# note
+#   "make check"を実行するときはdockerを特権モード(--privileged)にする。
+#   (asanの試験結果がFAILになる)
 ##################################################
 ENV GCC="gcc"
 ENV GCC_VERSION="7.4.0"
@@ -38,14 +41,18 @@ ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
 ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
 
 RUN set -x; \
-    yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool texinfo \
-    && mkdir "${INSTALL_DIR}/${GCC_PAKAGE}" \
+       : "関連パッケージのインストール" \
+    && yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool \
+        gettext gperf dejagnu autogen flex texinfo patch \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${GCC_PAKAGE}" \
+    && : "gccのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${GCC_URL}" \
     && tar xvf "${GCC_PAKAGE_FILE}" \
     && cd "${GCC_PAKAGE}" \
     && ./contrib/download_prerequisites \
-    && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
     && cd "${BUILD_DIR}/${GCC_PAKAGE}" \
     && "${SRC_DIR}/${GCC_PAKAGE}/configure" \
         --enable-languages=c,c++ \
@@ -53,14 +60,19 @@ RUN set -x; \
         --disable-multilib \
         --disable-bootstrap \
     && make -j`nproc` |& tee make.log \
+#    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then make check |& tee make_check.log; fi \
     && make install \
     && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
     && libtool --finish "${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
     && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \
-    && echo "${INSTALL_DIR}/${GCC}/lib" >> /etc/ld.so.conf.d/gcc.conf \
-    && ldconfig \
-    && : "不要なファイルを削除する" \
+    && : "共有ライブラリの設定" \
+    && if [ -z ${LD_LIBRARY_PATH} ] ; then \
+        echo "LD_LIBRARY_PATH=${INSTALL_DIR}/${GCC}/lib64:${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}:${INSTALL_DIR}/${GCC}/lib/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}/plugin" >> ~/.bashrc ; \
+       else \
+        echo "LD_LIBRARY_PATH=${INSTALL_DIR}/${GCC}/lib64:${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}:${INSTALL_DIR}/${GCC}/lib/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}/plugin"':${LD_LIBRARY_PATH}' >> ~/.bashrc ; \
+       fi \
+    && : "不要なファイルの削除" \
     && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then \
         rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" ; \
        else \
