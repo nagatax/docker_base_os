@@ -62,6 +62,7 @@ RUN set -x; \
 #        --enable-bootstrap \
         --with-system-zlib \
     && make -j`nproc` |& tee make.log \
+#    && ulimit -s 32768
 #    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then make check |& tee make_check.log; fi \
     && make install |& tee make_install.log \
     && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
