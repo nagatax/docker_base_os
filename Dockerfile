@@ -56,11 +56,11 @@ RUN set -x; \
     && ./contrib/download_prerequisites \
     && cd "${BUILD_DIR}/${GCC_PAKAGE}" \
     && "${SRC_DIR}/${GCC_PAKAGE}/configure" \
-        --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
-        --enable-languages=c,c++ \
-        --disable-multilib \
         --disable-bootstrap \
+        --disable-multilib \
 #        --enable-bootstrap \
+        --enable-languages=c,c++ \
+        --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
         --with-system-zlib \
     && make -j`nproc` |& tee make.log \
 #    && ulimit -s 32768
