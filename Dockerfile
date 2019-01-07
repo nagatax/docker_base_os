@@ -25,14 +25,16 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # gccのインストール
 #
 # options
-#   --enable-languages: インストールするプログラミング言語を指定。デフォルトはC, C++, Objective-C, Fortran, Java。
-#   --disable-multilib: 32bitライブラリを探さない。
 #   --disable-bootstrap: bootstrapビルドを実施しない。bootstrapビルドはコンパイルを3回実施し、検証を行う。
+#   --disable-multilib: 32bitライブラリを探さない。
+#   --enable-languages: インストールするプログラミング言語を指定。デフォルトはC, C++, Objective-C, Fortran, Java。
+#   --with-system-zlib: OSにインストール済みのzlibを使用する。
 # commands
 #   download_prerequisites:コンパイルに必要なパッケージ(gmp/mpfr/mpc/isl)をダウンロードする。
 # note
 #   "make check"を実行するときはdockerを特権モード(--privileged)にする。
 #   (asanの試験結果がFAILになる)
+#   また、試験中にスタック領域が不足するため、ulimitコマンドでスタック領域を拡張する。
 ##################################################
 ENV GCC="gcc"
 ENV GCC_VERSION="7.4.0"
@@ -42,8 +44,27 @@ ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/$
 
 RUN set -x; \
        : "関連パッケージのインストール" \
-    && yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool \
-        gettext gperf dejagnu autogen flex texinfo patch \
+    && yum install -y \
+        autoconf \
+        autogen \
+        automake \
+        bzip2 \
+        dejagnu \
+        file \
+        flex \
+        gcc \
+        gcc-c++ \
+        gettext \
+        gperf \
+        libtool \
+        make \
+        patch \
+        perl \
+        texinfo \
+        wget \
+        zlib-devel \
+    && rm -rf /var/cache/yum/* \
+    && yum clean all \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
     && mkdir -p "${INSTALL_DIR}/${GCC_PAKAGE}" \
@@ -55,13 +76,17 @@ RUN set -x; \
     && ./contrib/download_prerequisites \
     && cd "${BUILD_DIR}/${GCC_PAKAGE}" \
     && "${SRC_DIR}/${GCC_PAKAGE}/configure" \
+        --disable-bootstrap \
+        --disable-multilib \
+#        --enable-bootstrap \
         --enable-languages=c,c++ \
         --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
-        --disable-multilib \
-        --disable-bootstrap \
+        --with-system-zlib \
     && make -j`nproc` |& tee make.log \
+#    && ulimit -s 32768
 #    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then make check |& tee make_check.log; fi \
-    && make install \
+    && make install-strip |& tee make_install.log \
+#    && make install |& tee make_install.log \
     && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
     && libtool --finish "${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
