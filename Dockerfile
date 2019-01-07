@@ -25,9 +25,10 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # gccのインストール
 #
 # options
-#   --enable-languages: インストールするプログラミング言語を指定。デフォルトはC, C++, Objective-C, Fortran, Java。
-#   --disable-multilib: 32bitライブラリを探さない。
 #   --disable-bootstrap: bootstrapビルドを実施しない。bootstrapビルドはコンパイルを3回実施し、検証を行う。
+#   --disable-multilib: 32bitライブラリを探さない。
+#   --enable-languages: インストールするプログラミング言語を指定。デフォルトはC, C++, Objective-C, Fortran, Java。
+#   --with-system-zlib: OSにインストール済みのzlibを使用する。
 # commands
 #   download_prerequisites:コンパイルに必要なパッケージ(gmp/mpfr/mpc/isl)をダウンロードする。
 # note
@@ -62,6 +63,8 @@ RUN set -x; \
         texinfo \
         wget \
         zlib-devel \
+    && rm -rf /var/cache/yum/* \
+    && yum clean all \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
     && mkdir -p "${INSTALL_DIR}/${GCC_PAKAGE}" \
@@ -82,7 +85,8 @@ RUN set -x; \
     && make -j`nproc` |& tee make.log \
 #    && ulimit -s 32768
 #    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then make check |& tee make_check.log; fi \
-    && make install |& tee make_install.log \
+    && make install-strip |& tee make_install.log \
+#    && make install |& tee make_install.log \
     && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
     && libtool --finish "${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
