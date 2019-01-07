@@ -43,8 +43,25 @@ ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/$
 
 RUN set -x; \
        : "関連パッケージのインストール" \
-    && yum -y install wget bzip2 make gcc gcc-c++ file perl autoconf automake file libtool \
-        gettext gperf dejagnu autogen flex texinfo patch zlib-devel \
+    && yum install -y \
+        autoconf \
+        autogen \
+        automake \
+        bzip2 \
+        dejagnu \
+        file \
+        flex \
+        gcc \
+        gcc-c++ \
+        gettext \
+        gperf \
+        libtool \
+        make \
+        patch \
+        perl \
+        texinfo \
+        wget \
+        zlib-devel \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
     && mkdir -p "${INSTALL_DIR}/${GCC_PAKAGE}" \
