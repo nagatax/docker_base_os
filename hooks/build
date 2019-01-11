@@ -2,4 +2,4 @@
 set -eu
 
 # dockerイメージのビルド
-docker build --build-arg IS_DEVELOPMENT=${IS_DEVELOPMENT} -t ${IMAGE_NAME} .
+docker build -t ${IMAGE_NAME} .
