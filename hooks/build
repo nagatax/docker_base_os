@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+
+# 実行環境の設定
+#  true:試験環境
+#  false:本番環境
+IS_DEVELOPMENT="false"
+
+# dockerイメージのビルド
+docker build --build-arg IS_DEVELOPMENT=${IS_DEVELOPMENT} -t ${IMAGE_NAME} .
