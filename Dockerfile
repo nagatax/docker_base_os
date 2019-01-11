@@ -103,3 +103,6 @@ RUN set -x; \
        else \
         rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${SRC_DIR}/${GCC_PAKAGE}" "${BUILD_DIR}/${GCC_PAKAGE}" ; \
        fi
+
+# 起動時のコマンドを設定
+CMD [ "/bin/bash" ]
