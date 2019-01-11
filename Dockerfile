@@ -1,14 +1,8 @@
-FROM centos:7
-
 ##################################################
-# 実行環境の設定
-#  hooks/buildファイルで設定
-ARG IS_DEVELOPMENT="false"
+# Setup develop image
 ##################################################
 
-##################################################
-# 共通処理
-##################################################
+FROM centos:7 AS devlop_image
 
 # 共通の設定
 ENV SRC_DIR="/usr/local/src"
@@ -21,7 +15,7 @@ USER root
 # GPG keyの設定
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
-##################################################
+#
 # gccのインストール
 #
 # options
@@ -35,7 +29,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 #   "make check"を実行するときはdockerを特権モード(--privileged)にする。
 #   (asanの試験結果がFAILになる)
 #   また、試験中にスタック領域が不足するため、ulimitコマンドでスタック領域を拡張する。
-##################################################
+#
 ENV GCC="gcc"
 ENV GCC_VERSION="7.4.0"
 ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
@@ -98,8 +92,16 @@ RUN set -x; \
         echo "LD_LIBRARY_PATH=${INSTALL_DIR}/${GCC}/lib64:${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}:${INSTALL_DIR}/${GCC}/lib/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}/plugin"':${LD_LIBRARY_PATH}' >> ~/.bashrc ; \
        fi \
     && : "不要なファイルの削除" \
-    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then \
-        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" ; \
-       else \
-        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${SRC_DIR}/${GCC_PAKAGE}" "${BUILD_DIR}/${GCC_PAKAGE}" ; \
-       fi
+    && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
+
+CMD ["/bin/bash"]
+
+##################################################
+# Setup release image
+##################################################
+FROM centos:7
+
+COPY --from=devlop_image "${INSTALL_DIR}/${GCC}" "${INSTALL_DIR}/${GCC}"
+COPY --from=devlop_image "~/.bashrc" "~/.bashrc"
+
+CMD ["/bin/bash"]
