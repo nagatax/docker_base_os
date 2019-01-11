@@ -1,10 +1,7 @@
-FROM centos:7
-
 ##################################################
-# 実行環境の設定
-#  hooks/buildファイルで設定
-ARG IS_DEVELOPMENT="false"
+# Setup builder image
 ##################################################
+FROM centos:7 AS builder
 
 ##################################################
 # 共通処理
@@ -103,6 +100,17 @@ RUN set -x; \
        else \
         rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${SRC_DIR}/${GCC_PAKAGE}" "${BUILD_DIR}/${GCC_PAKAGE}" ; \
        fi
+
+# 起動時のコマンドを設定
+CMD [ "/bin/bash" ]
+
+##################################################
+# Setup release image
+##################################################
+FROM centos:7
+
+COPY --from=builder "${INSTALL_DIR}/${GCC}" "${INSTALL_DIR}/${GCC}"
+COPY --from=builder "/root/.bashrc" "/root/.bashrc"
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
