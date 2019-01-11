@@ -81,7 +81,7 @@ RUN set -x; \
         --with-system-zlib \
     && make -j`nproc` |& tee make.log \
 #    && ulimit -s 32768
-#    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then make check |& tee make_check.log; fi \
+#    && make check |& tee make_check.log \
     && make install-strip |& tee make_install.log \
 #    && make install |& tee make_install.log \
     && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
@@ -95,11 +95,7 @@ RUN set -x; \
         echo "LD_LIBRARY_PATH=${INSTALL_DIR}/${GCC}/lib64:${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}:${INSTALL_DIR}/${GCC}/lib/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}/plugin"':${LD_LIBRARY_PATH}' >> ~/.bashrc ; \
        fi \
     && : "不要なファイルの削除" \
-    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then \
-        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" ; \
-       else \
-        rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${SRC_DIR}/${GCC_PAKAGE}" "${BUILD_DIR}/${GCC_PAKAGE}" ; \
-       fi
+    && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
