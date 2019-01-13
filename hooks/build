@@ -12,12 +12,16 @@ IS_DEVELOPMENT="false"
 docker build --build-arg IS_DEVELOPMENT=${IS_DEVELOPMENT} \
     -t ${IMAGE_NAME} . -f Dockerfile.build
 
+mkdir -p deploy_files/gcc-7.4.0
 docker container create --name extract ${IMAGE_NAME}
-docker container cp extract:/usr/local/gcc ./app
+docker container cp extract:/usr/local/gcc-7.4.0 deploy_files
+docker container cp extract:/root/.bashrc deploy_files
 docker container rm -f extract
+docker rmi ${IMAGE_NAME}
 
 echo "Building image for release"
 
 docker build --no-cache \
     -t ${IMAGE_NAME} .
-rm ./app
+
+rm -rf deploy_files
