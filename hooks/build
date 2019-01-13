@@ -1,5 +1,23 @@
 #!/bin/bash
 set -eu
 
+echo "image for building"
+
+# 実行環境の設定
+#  true:試験環境
+#  false:本番環境
+IS_DEVELOPMENT="false"
+
 # dockerイメージのビルド
-docker build -t ${IMAGE_NAME} .
+docker build --build-arg IS_DEVELOPMENT=${IS_DEVELOPMENT} \
+    -t ${IMAGE_NAME} . -f Dockerfile.build
+
+docker container create --name extract ${IMAGE_NAME}
+docker container cp extract:/usr/local/gcc ./app
+docker container rm -f extract
+
+echo "Building image for release"
+
+docker build --no-cache \
+    -t ${IMAGE_NAME} .
+rm ./app
