@@ -40,8 +40,8 @@ ENV GCC="gcc"
 ENV GCC_VERSION="7.4.0"
 ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
-ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
-ENV GCC_SIG="http://ftp.jaist.ac.jp/pub/GNU/gcc/gcc-7.4.0/gcc-7.4.0.tar.gz.sig"
+ENV GCC_URL="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
+ENV GCC_SIG="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}.sig"
 
 RUN set -x; \
        : "関連パッケージのインストール" \
