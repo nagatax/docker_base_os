@@ -80,14 +80,15 @@ RUN set -x; \
         --disable-multilib \
 #        --enable-bootstrap \
         --enable-languages=c,c++ \
-        --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
+#        --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
+        --prefix="${INSTALL_DIR}/${GCC}" \
         --with-system-zlib \
     && make -j`nproc` |& tee make.log \
 #    && ulimit -s 32768
 #    && if [ "x${IS_DEVELOPMENT}" = "xtrue" ] ; then make check |& tee make_check.log; fi \
     && make install-strip |& tee make_install.log \
 #    && make install |& tee make_install.log \
-    && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
+#    && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
     && libtool --finish "${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
     && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \

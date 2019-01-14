@@ -14,7 +14,7 @@ docker build --build-arg IS_DEVELOPMENT=${IS_DEVELOPMENT} \
 
 mkdir -p deploy_files/gcc-7.4.0
 docker container create --name extract ${IMAGE_NAME}
-docker container cp extract:/usr/local/gcc-7.4.0 deploy_files
+docker container cp extract:/usr/local/gcc deploy_files
 docker container cp extract:/root/.bashrc deploy_files
 docker container rm -f extract
 docker rmi ${IMAGE_NAME}
