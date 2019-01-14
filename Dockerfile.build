@@ -41,6 +41,7 @@ ENV GCC_VERSION="7.4.0"
 ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
 ENV GCC_URL="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
+ENV GCC_SIG="http://ftp.jaist.ac.jp/pub/GNU/gcc/gcc-7.4.0/gcc-7.4.0.tar.gz.sig"
 
 RUN set -x; \
        : "関連パッケージのインストール" \
@@ -67,7 +68,7 @@ RUN set -x; \
     && yum clean all \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
-    && mkdir -p "${INSTALL_DIR}/${GCC_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${GCC}" \
     && : "gccのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${GCC_URL}" \
