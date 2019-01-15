@@ -18,7 +18,7 @@ the base_os:latest tag is always the most recent version currently available.
 ## Supported tags and respective `Dockerfile` links
 
 - [`latest` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/master/Dockerfile)
-- [`0.0.1-dev` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/0.0.1-dev/Dockerfile)
+- [`develop` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/develop/Dockerfile)
 
 ## Quick reference
 
