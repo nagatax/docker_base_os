@@ -22,6 +22,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 #   --disable-bootstrap: bootstrapビルドを実施しない。bootstrapビルドはコンパイルを3回実施し、検証を行う。
 #   --disable-multilib: 32bitライブラリを探さない。
 #   --enable-languages: インストールするプログラミング言語を指定。デフォルトはC, C++, Objective-C, Fortran, Java。
+#   --prefix: インストール先のパス。
 #   --with-system-zlib: OSにインストール済みのzlibを使用する。
 # commands
 #   download_prerequisites:コンパイルに必要なパッケージ(gmp/mpfr/mpc/isl)をダウンロードする。
@@ -75,7 +76,6 @@ RUN set -x; \
         --disable-multilib \
 #        --enable-bootstrap \
         --enable-languages=c,c++ \
-#        --prefix="${INSTALL_DIR}/${GCC_PAKAGE}" \
         --prefix="${INSTALL_DIR}/${GCC}" \
         --with-system-zlib \
     && make -j`nproc` |& tee make.log \
