@@ -1,0 +1,283 @@
+FROM nagatax/gcc:latest
+
+##################################################
+# 共通処理
+##################################################
+
+# 共通の設定
+ENV SRC_DIR="/usr/local/src"
+ENV INSTALL_DIR="/usr/local"
+ENV BUILD_DIR="/usr/local/build"
+
+# 実行ユーザの変更
+USER root
+
+# GPG keyの設定
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+##################################################
+# Apacheのインストール
+##################################################
+# Install apr
+ENV APR="apr"
+ENV APR_VERSION="1.6.5"
+ENV APR_PAKAGE="${APR}-${APR_VERSION}"
+ENV APR_PAKAGE_FILE="${APR_PAKAGE}.tar.gz"
+ENV APR_URL="http://ftp.jaist.ac.jp/pub/apache//${APR}/${APR_PAKAGE_FILE}"
+ENV APR_SHA256="70dcf9102066a2ff2ffc47e93c289c8e54c95d8dda23b503f9e61bb0cbd2d105 *${APR_PAKAGE_FILE}"
+
+RUN set -x; \
+      . ~/.bashrc \
+       : "関連パッケージのインストール" \
+    && yum install -y \
+        file \
+        make \
+        wget \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${BUILD_DIR}/${APR_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${APR}" \
+    && : "aprのインストール" \
+    && cd "${SRC_DIR}" \
+    && wget "${APR_URL}" \
+    && echo "${APR_SHA256}" | sha256sum -c - \
+    && tar xvf "${APR_PAKAGE_FILE}" \
+    && cd "${APR_PAKAGE}" \
+    && sed -ie 's/$RM "$cfgfile"/$RM -f "$cfgfile"/g' ./configure \
+    && cd "${BUILD_DIR}/${APR_PAKAGE}" \
+    && "${SRC_DIR}/${APR_PAKAGE}/configure" \
+        --prefix="${INSTALL_DIR}/${APR}" \
+    && make -j`nproc` \
+    && make install \
+    && : "不要なファイルの削除" \
+    && rm -rf "${SRC_DIR}/${APR_PAKAGE}" \
+        "${SRC_DIR}/${APR_PAKAGE_FILE}" \
+        "${BUILD_DIR}/${APR_PAKAGE}"
+
+# Install apr-util
+ENV APR_UTIL="apr-util"
+ENV APR_UTIL_VERSION="1.6.1"
+ENV APR_UTIL_PAKAGE="${APR_UTIL}-${APR_UTIL_VERSION}"
+ENV APR_UTIL_PAKAGE_FILE="${APR_UTIL_PAKAGE}.tar.gz"
+ENV APR_UTIL_URL="http://ftp.jaist.ac.jp/pub/apache//${APR}/${APR_UTIL_PAKAGE_FILE}"
+ENV APR_UTIL_SHA256="b65e40713da57d004123b6319828be7f1273fbc6490e145874ee1177e112c459 *${APR_UTIL_PAKAGE_FILE}"
+
+RUN set -x; \
+      . ~/.bashrc \
+       : "関連パッケージのインストール" \
+    && yum install -y \
+        expat-devel \
+        make \
+        wget \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${BUILD_DIR}/${APR_UTIL_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${APR_UTIL}" \
+    && : "apr-utilのインストール" \
+    && cd "${SRC_DIR}" \
+    && wget "${APR_UTIL_URL}" \
+    && echo "${APR_UTIL_SHA256}" | sha256sum -c - \
+    && tar xvf "${APR_UTIL_PAKAGE_FILE}" \
+    && cd "${BUILD_DIR}/${APR_UTIL_PAKAGE}" \
+    && "${SRC_DIR}/${APR_UTIL_PAKAGE}/configure" \
+        --prefix="${INSTALL_DIR}/${APR_UTIL}" \
+        --with-apr="${INSTALL_DIR}/${APR}" \
+    && make -j`nproc` \
+    && make install \
+    && : "不要なファイルの削除" \
+    && rm -rf "${SRC_DIR}/${APR_UTIL_PAKAGE}" \
+        "${SRC_DIR}/${APR_UTIL_PAKAGE_FILE}" \
+        "${BUILD_DIR}/${APR_UTIL_PAKAGE}"
+
+# Install pcre
+ENV PCRE="pcre"
+ENV PCRE_VERSION="8.42"
+ENV PCRE_PAKAGE="${PCRE}-${PCRE_VERSION}"
+ENV PCRE_PAKAGE_FILE="${PCRE_PAKAGE}.tar.gz"
+ENV PCRE_URL="https://ftp.pcre.org/pub/${PCRE}/${PCRE_PAKAGE_FILE}"
+ENV PCRE_SIG_URL="https://ftp.pcre.org/pub/${PCRE}/${PCRE_PAKAGE_FILE}.sig"
+
+RUN set -x; \
+      . ~/.bashrc \
+       : "関連パッケージのインストール" \
+    && yum install -y \
+        make \
+        wget \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${BUILD_DIR}/${PCRE_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${PCRE}" \
+    && : "pcreのインストール" \
+    && cd "${SRC_DIR}" \
+    && wget "${PCRE_URL}" \
+    && wget "${PCRE_SIG_URL}" \
+#    && gpg --verify "${PCRE_PAKAGE_FILE}.sig" \
+    && tar xvf "${PCRE_PAKAGE_FILE}" \
+    && cd "${BUILD_DIR}/${PCRE_PAKAGE}" \
+    && "${SRC_DIR}/${PCRE_PAKAGE}/configure" \
+        --prefix="${INSTALL_DIR}/${PCRE}" \
+    && make -j`nproc` \
+    && make install \
+    && : "不要なファイルの削除" \
+    && rm -rf "${SRC_DIR}/${PCRE_PAKAGE}" \
+        "${SRC_DIR}/${PCRE_PAKAGE_FILE}" \
+        "${BUILD_DIR}/${PCRE_PAKAGE}"
+
+# Install openssl
+ENV OPENSSL="openssl"
+ENV OPENSSL_VERSION="1.1.1a"
+ENV OPENSSL_PAKAGE="${OPENSSL}-${OPENSSL_VERSION}"
+ENV OPENSSL_PAKAGE_FILE="${OPENSSL_PAKAGE}.tar.gz"
+ENV OPENSSL_URL="https://www.openssl.org/source/${OPENSSL_PAKAGE_FILE}"
+ENV OPENSSL_SHA256="fc20130f8b7cbd2fb918b2f14e2f429e109c31ddd0fb38fc5d71d9ffed3f9f41 *${OPENSSL_PAKAGE_FILE}"
+
+RUN set -x; \
+      . ~/.bashrc \
+       : "関連パッケージのインストール" \
+    && yum install -y \
+        make \
+        perl \
+        zlib-devel \
+        wget \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${BUILD_DIR}/${OPENSSL_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${OPENSSL}" \
+    && : "opensslのインストール" \
+    && cd "${SRC_DIR}" \
+    && wget "${OPENSSL_URL}" \
+    && echo "${OPENSSL_SHA256}" | sha256sum -c - \
+    && tar xvf "${OPENSSL_PAKAGE_FILE}" \
+    && cd "${BUILD_DIR}/${OPENSSL_PAKAGE}" \
+    && "${SRC_DIR}/${OPENSSL_PAKAGE}/config" \
+        --prefix="${INSTALL_DIR}/${OPENSSL}" \
+        shared \
+        zlib \
+    && make -j`nproc` \
+    && make install \
+    && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${OPENSSL}/bin" >> /root/.bashrc \
+    && echo "${INSTALL_DIR}/${OPENSSL}/lib" > /etc/ld.so.conf.d/lib64.conf \
+    && ldconfig \
+    && : "不要なファイルの削除" \
+    && rm -rf "${SRC_DIR}/${OPENSSL_PAKAGE}" \
+        "${SRC_DIR}/${OPENSSL_PAKAGE_FILE}" \
+        "${BUILD_DIR}/${OPENSSL_PAKAGE}"
+
+# Install Apache
+ENV APACHE="httpd"
+ENV APACHE_VERSION="2.4.37"
+ENV APACHE_PAKAGE="${APACHE}-${APACHE_VERSION}"
+ENV APACHE_PAKAGE_FILE="${APACHE_PAKAGE}.tar.gz"
+ENV APACHE_URL="http://ftp.kddilabs.jp/infosystems/apache//${APACHE}/${APACHE_PAKAGE_FILE}"
+ENV APACHE_SHA256="aa97a834a32d51974be8d8a013b561e28d327387cb1da2c3c2762acd0146aabd *${APACHE_PAKAGE_FILE}"
+
+RUN set -x; \
+      . ~/.bashrc \
+       : "関連パッケージのインストール" \
+    && yum install -y \
+        make \
+        wget \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${BUILD_DIR}/${APACHE_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${APACHE}" \
+    && : "apacheのインストール" \
+    && cd "${SRC_DIR}" \
+    && wget "${APACHE_URL}" \
+    && echo "${APACHE_SHA256}" | sha256sum -c - \
+    && tar xvf "${APACHE_PAKAGE_FILE}" \
+    && cd "${BUILD_DIR}/${APACHE_PAKAGE}" \
+    && "${SRC_DIR}/${APACHE_PAKAGE}/configure" \
+        --enable-mods-shared=all \
+        --enable-shared=ssl \
+        --enable-ssl \
+        --prefix="${INSTALL_DIR}/${APACHE}" \
+        --with-apr="${INSTALL_DIR}/${APR}" \
+        --with-apr-util="${INSTALL_DIR}/${APR_UTIL}" \
+        --with-pcre="${INSTALL_DIR}/${PCRE}/bin/pcre-config" \
+        --with-ssl="${INSTALL_DIR}/${OPENSSL}" \
+    && make -j`nproc` \
+    && make install \
+    && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${APACHE}/bin" >> /root/.bashrc \
+    && useradd -s /sbin/nologin apache \
+    && chown -R apache:apache "${INSTALL_DIR}/${APACHE}/" \
+    && : "不要なファイルの削除" \
+    && rm -rf "${SRC_DIR}/${APACHE_PAKAGE}" \
+        "${SRC_DIR}/${APACHE_PAKAGE_FILE}" \
+        "${BUILD_DIR}/${APACHE_PAKAGE_FILE}"
+
+##################################################
+# PHPのインストール
+##################################################
+
+# Install PHP
+ENV PHP="php"
+ENV PHP_VERSION="7.2.14"
+ENV PHP_PAKAGE="${PHP}-${PHP_VERSION}"
+ENV PHP_PAKAGE_FILE="${PHP}-${PHP_VERSION}.tar.gz"
+ENV PHP_URL="http://jp2.php.net/distributions/${PHP_PAKAGE_FILE}"
+ENV PHP_SHA256="87e13d80b0c3a66bd463d1cb47dc101335884a0d192ab924f547f8aed7f70c08 *${PHP_PAKAGE_FILE}"
+
+RUN set -x; \
+      . ~/.bashrc \
+       : "関連パッケージのインストール" \
+    && yum install -y \
+        autoconf \
+        automake \
+        bison \
+        curl-devel \
+        file \
+        libicu-devel \
+        libjpeg-devel \
+        libpng-devel \
+        libxml2-devel \
+        make \
+        mysql-devel \
+        openssl-devel \
+        postgresql-devel \
+        re2c \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${BUILD_DIR}/${PHP_PAKAGE}" \
+    && mkdir -p "${INSTALL_DIR}/${PHP}" \
+    && : "phpのインストール" \
+    && cd "${SRC_DIR}" \
+    && wget "${PHP_URL}" \
+    && echo "${PHP_SHA256}" | sha256sum -c - \
+    && tar xvf "${PHP_PAKAGE_FILE}" \
+    && cd "${BUILD_DIR}/${PHP_PAKAGE}" \
+    && "${SRC_DIR}/${PHP_PAKAGE}/configure" \
+        --enable-bcmath \
+        --enable-calendar \
+        --enable-fpm \
+        --enable-mbstring \
+        --enable-opcache \
+        --enable-soap \
+        --enable-zip \
+        --prefix="${INSTALL_DIR}/${PHP}" \
+        --with-apxs2="${INSTALL_DIR}/${APACHE}/bin/apxs" \
+        --with-pdo-mysql \
+        --with-pdo-pgsql \
+        --with-curl \
+        --with-openssl \
+    && make -j`nproc` \
+    && make install \
+    && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${PHP}/bin" >> /root/.bashrc \
+    && cp -a "${SRC_DIR}/${PHP_PAKAGE}/php.ini-development" "${INSTALL_DIR}/${PHP}/lib/php.ini" \
+    && : "不要なファイルの削除" \
+    && rm -rf "${SRC_DIR}/${PHP_PAKAGE}" \
+        "${SRC_DIR}/${PHP_PAKAGE_FILE}" \
+        "${BUILD_DIR}/${PHP_PAKAGE}"
+
+# Update PEAR and PECL
+RUN set -x; \
+      . ~/.bashrc \
+      && pear config-set php_ini "${INSTALL_DIR}/${PHP}/lib/php.ini" \
+      && pecl config-set php_ini "${INSTALL_DIR}/${PHP}/lib/php.ini"
+
+# Install pecl pakages
+RUN set -x; \
+      . ~/.bashrc \
+      && pecl install \
+#          geoip \
+#          imagick \
+#          memcached \
+#          oauth \
+#          ssh2 \
+#          varnish \
+#          yaml \
+          xdebug
