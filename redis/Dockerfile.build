@@ -1,0 +1,51 @@
+FROM nagatax/gcc:latest
+
+##################################################
+# 共通処理
+##################################################
+
+# 共通の設定
+ENV SRC_DIR="/usr/local/src"
+ENV INSTALL_DIR="/usr/local"
+
+# 実行ユーザの変更
+USER root
+
+# GPG keyの設定
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+##################################################
+# redisのインストール
+##################################################
+ENV REDIS="redis"
+ENV REDIS_VERSION="5.0.3"
+ENV REDIS_PAKAGE="${REDIS}-${REDIS_VERSION}"
+ENV REDIS_PAKAGE_FILE="${REDIS_PAKAGE}.tar.gz"
+ENV REDIS_URL="http://download.redis.io/releases/${REDIS_PAKAGE_FILE}"
+
+RUN set -x; \
+    . ~/.bashrc \
+    && : "関連パッケージのインストール" \
+    && yum install -y \
+        make \
+        tcl \
+        tcl-devel \
+        wget \
+        which \
+    && : "必要なフォルダの作成" \
+    && mkdir -p "${INSTALL_DIR}/${REDIS}" \
+    && : "redisのインストール" \
+    && cd "${SRC_DIR}" \
+    && wget "${REDIS_URL}" \
+    && tar xvf "${REDIS_PAKAGE_FILE}" \
+    && cd "${REDIS_PAKAGE}" \
+    && export CC=gcc \
+    && make distclean \
+    && make -j`nproc` |& tee make.log \
+#    && make check |& tee make_check.log \
+    && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log \
+    && : "不要なファイルの削除" \
+    && rm -rf "${SRC_DIR}/${REDIS_PAKAGE_FILE}"
+
+# 起動時のコマンドを設定
+CMD [ "/bin/bash" ]
