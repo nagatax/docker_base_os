@@ -1,4 +1,4 @@
-FROM nagatax/base_os:latest
+FROM nagatax/gcc:latest
 
 ##################################################
 # 共通処理
