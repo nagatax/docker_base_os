@@ -18,13 +18,13 @@ the base_os:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest` ( *docker_php/Dockerfile* )](https://github.com/nagatax/docker_php/blob/master/Dockerfile)
-- [`0.0.1-dev` ( *docker_php/Dockerfile* )](https://github.com/nagatax/docker_php/blob/0.0.1-dev/Dockerfile)
+- [`latest` ( *php/Dockerfile* )](https://github.com/nagatax/docker-library/tree/php-master/php)
+- [`develop` ( *php/Dockerfile* )](https://github.com/nagatax/docker-library/tree/php-develop/php)
 
 ## Quick reference
 
 - Where to file issues:  
-  [GitHub](https://github.com/nagatax/docker_php/issues)
+  [GitHub](https://github.com/nagatax/docker-library/issues)
 
 - Maintained by:  
   [nagatax](https://github.com/nagatax)
@@ -45,4 +45,4 @@ docker pull nagatax/php:latest
 
 ## License
 
-This software is released under the MIT License, see [LICENSE](https://github.com/nagatax/docker_php/blob/master/LICENSE).
+This software is released under the MIT License, see [LICENSE](https://github.com/nagatax/docker-library/blob/master/LICENSE).
