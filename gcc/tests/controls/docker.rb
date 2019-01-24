@@ -8,7 +8,7 @@ control 'docker' do
   desc 'An optional description...'
 
   # docker
-  describe docker_image('docker.io/nagatax/gcc') do
+  describe docker_image('docker.io/nagatax/gcc:develop') do
     it { should exist }
     its('repo') { should eq 'docker.io/nagatax/gcc' }
     its('tag')  { should eq nil }
