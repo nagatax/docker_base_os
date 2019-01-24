@@ -1,8 +1,8 @@
 # Install curl
-yum install -y curl
+#yum install -y curl
 
 # Install inspec
-curl "https://omnitruck.chef.io/install.sh" | sudo bash -s -- -P inspec
+curl "https://omnitruck.chef.io/install.sh" | bash -s -- -P inspec
 
 # docker run
 docker run -it -d --name sut docker.io/nagatax/gcc
