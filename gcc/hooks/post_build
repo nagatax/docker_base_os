@@ -4,5 +4,7 @@ set -eu
 echo $DOCKERFILE_PATH
 echo $(pwd)
 
+ls
+
 cd tests
 ./runtests.sh
