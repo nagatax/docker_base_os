@@ -14,7 +14,7 @@ control 'docker' do
     its('tag')  { should eq 'develop' }
   end
 
-  describe docker_container(name: 'gcc') do
+  describe docker_container(name: 'sut') do
     it { should exist }
     it { should be_running }
     #its('id')     { should_not eq '' }
