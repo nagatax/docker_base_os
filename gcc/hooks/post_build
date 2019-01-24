@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eu
 
-./runtests.sh
+tests/runtests.sh
