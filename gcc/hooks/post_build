@@ -1,12 +1,5 @@
 #!/bin/bash
 set -eu
 
-echo $DOCKERFILE_PATH
-echo $(pwd)
-
 cd tests
-
-ls
-
-cd tests
-./runtests.sh
+./run_tests.sh
