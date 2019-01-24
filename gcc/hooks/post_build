@@ -1,4 +1,5 @@
 #!/bin/bash
 set -eu
 
-./runtests.sh
+cd ../tests
+../runtests.sh
