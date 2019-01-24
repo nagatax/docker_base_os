@@ -4,6 +4,8 @@ set -eu
 echo $DOCKERFILE_PATH
 echo $(pwd)
 
+cd tests
+
 ls
 
 cd tests
