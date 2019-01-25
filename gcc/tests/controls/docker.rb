@@ -17,11 +17,11 @@ control 'docker' do
   describe docker_container(name: 'sut') do
     it { should exist }
     it { should be_running }
-    #its('id')     { should_not eq '' }
+    its('id')     { should_not eq '' }
     its('image')   { should eq ENV['DOCKER_REPO'].gsub(/index\./, "") }
     its('repo')    { should eq ENV['DOCKER_REPO'].gsub(/index\./, "") }
     its('tag')     { should eq nil }
-    #its('ports')  { should eq [] }
+    its('ports')  { should eq [] }
     its('command') { should eq '/bin/bash' }
   end
 
