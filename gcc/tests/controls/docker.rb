@@ -4,8 +4,8 @@ title 'docker section'
 
 control 'docker' do
   impact 0.7
-  title 'Check installed gcc package'
-  desc 'Check installed gcc package'
+  title 'Check docker container'
+  desc 'Check docker container'
 
   describe docker_container(name: 'sut') do
     it { should exist }
