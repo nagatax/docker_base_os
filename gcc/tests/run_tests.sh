@@ -5,7 +5,7 @@ set -eu
 curl "https://omnitruck.chef.io/install.sh" | bash -s -- -P inspec
 
 # docker run
-docker run -it -d --name sut docker.io/nagatax/gcc
+docker run -it -d --name sut "${IMAGE_NAME}"
 
 # execute inspec
 inspec exec . --controls=docker
