@@ -8,9 +8,9 @@ control 'docker' do
   desc 'An optional description...'
 
   # docker
-  describe docker_image('docker.io/nagatax/gcc:develop') do
+  describe docker_image(ENV['IMAGE_NAME']) do
     it { should exist }
-    its('repo') { should eq 'docker.io/nagatax/gcc' }
+    its('repo') { should eq ENV['DOCKER_REPO'] }
     its('tag')  { should eq nil }
   end
 
@@ -18,8 +18,8 @@ control 'docker' do
     it { should exist }
     it { should be_running }
     #its('id')     { should_not eq '' }
-    its('image')   { should eq 'docker.io/nagatax/gcc' }
-    its('repo')    { should eq 'docker.io/nagatax/gcc' }
+    its('image')   { should eq ENV['DOCKER_REPO'] }
+    its('repo')    { should eq ENV['DOCKER_REPO'] }
     its('tag')     { should eq nil }
     #its('ports')  { should eq [] }
     its('command') { should eq '/bin/bash' }
