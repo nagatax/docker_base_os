@@ -2,11 +2,10 @@
 
 title 'gcc section'
 
-#you add controls here
-control 'gcc' do                            # A unique ID for this control
-  impact 0.7                                # The criticality, if this control fails.
-  title 'Install gcc package'               # A human-readable title
-  desc 'An optional description...'
+control 'gcc' do
+  impact 0.7
+  title 'Check gcc package'
+  desc 'Check gcc package'
 
   # バイナリファイルの存在確認
   describe file('/root/.bashrc') do
