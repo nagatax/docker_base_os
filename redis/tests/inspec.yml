@@ -1,0 +1,6 @@
+name: redis
+title: redis
+summary: Verify that redis are installed
+version: 1.0.0
+supports:
+  - platform-family: linux
