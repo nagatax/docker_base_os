@@ -42,7 +42,7 @@ RUN set -x; \
     && make distclean \
     && make -j`nproc` |& tee make.log \
 #    && make check |& tee make_check.log \
-    && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log \
+    && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
