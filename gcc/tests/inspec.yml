@@ -1,0 +1,6 @@
+name: gcc
+title: gcc
+summary: Verify that gcc are installed
+version: 1.0.0
+supports:
+  - platform-family: linux
