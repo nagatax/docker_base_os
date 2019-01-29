@@ -1,25 +1,24 @@
 # Description of php image
 
-[![image information](https://dockeri.co/image/nagatax/php)](https://hub.docker.com/r/nagatax/php)
+[![image information](https://dockeri.co/image/nagatax/redis)](https://hub.docker.com/r/nagatax/redis)
 
-![automated](https://img.shields.io/docker/automated/nagatax/php.svg)
-![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fphp.svg)
+![automated](https://img.shields.io/docker/automated/nagatax/redis.svg)
+![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fredis.svg)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 ## Overview
 
 Centos7の最新版をベースに下記のソフトウェアをインストールしています。
 
-- php 7.2.13
-- apache 2.4.37
+- redis 5.0.3
 
 Note that:
 the base_os:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest` ( *php/Dockerfile* )](https://github.com/nagatax/docker-library/tree/php-master/php)
-- [`develop` ( *php/Dockerfile* )](https://github.com/nagatax/docker-library/tree/php-develop/php)
+- [`latest` ( *redis/Dockerfile* )](https://github.com/nagatax/docker-library/tree/redis-master/redis)
+- [`develop` ( *redis/Dockerfile* )](https://github.com/nagatax/docker-library/tree/redis-develop/redis)
 
 ## Quick reference
 
@@ -40,7 +39,7 @@ the base_os:latest tag is always the most recent version currently available.
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker pull nagatax/php:latest
+docker pull nagatax/redis:latest
 ```
 
 ## License
