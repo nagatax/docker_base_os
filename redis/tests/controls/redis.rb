@@ -17,9 +17,12 @@ control 'redis' do
   describe file('/usr/local/redis/bin/redis-server') do
     it { should be_file  }
   end
+  describe file('/usr/local/redis/bin/redis-cli') do
+    it { should be_file  }
+  end
 
   # バージョンの確認
-  describe command('. ~/.bashrc && redis -v') do
-    its(:stderr) { should match /5\.0\.3/ }
+  describe command('/usr/local/redis/bin/redis-server -v') do
+    its(:stdout) { should match /5\.0\.3/ }
   end
 end
