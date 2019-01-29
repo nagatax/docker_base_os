@@ -32,20 +32,17 @@ RUN set -x; \
         tcl-devel \
         wget \
         which \
-    && : "必要なフォルダの作成" \
-    && mkdir -p "${INSTALL_DIR}/${REDIS}" \
     && : "redisのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${REDIS_URL}" \
     && tar xvf "${REDIS_PAKAGE_FILE}" \
-    && cd "${REDIS_PAKAGE}" \
+    && mv "${REDIS_PAKAGE}" "${INSTALL_DIR}/${REDIS}" \
+    && cd "${INSTALL_DIR}/${REDIS}" \
     && export CC=gcc \
     && make distclean \
     && make -j`nproc` |& tee make.log \
 #    && make check |& tee make_check.log \
-    && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log \
-    && : "不要なファイルの削除" \
-    && rm -rf "${SRC_DIR}/${REDIS_PAKAGE_FILE}"
+    && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
