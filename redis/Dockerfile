@@ -10,7 +10,7 @@ COPY deploy_files/.bashrc /root/.bashrc
 RUN set -x; \
   : "redisユーザの作成" \
   && groupadd -r redis && useradd -g redis -s /sbin/nologin -r redis \
-  : "必要なパッケージのインストール" \
+  && : "必要なパッケージのインストール" \
   && yum install -y \
     tcl \
     tcl-devel \
