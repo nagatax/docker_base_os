@@ -15,7 +15,7 @@ control 'docker' do
     its('repo')    { should eq ENV['DOCKER_REPO'] }
     its('tag')     { should eq ENV['CACHE_TAG'] }
     its('ports')   { should eq '6379/tcp' }
-    its('command') { should eq '/usr/local/redis/bin/redis-server' }
+    its('command') { should eq '/usr/local/redis/bin/redis-server /data/redis.conf' }
   end
 
 end

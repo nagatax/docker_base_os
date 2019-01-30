@@ -22,7 +22,18 @@ control 'redis' do
   end
 
   # バージョンの確認
-  describe command('/usr/local/redis/bin/redis-server -v') do
+  describe command('. ~/.bashrc && redis-server -v') do
     its(:stdout) { should match /5\.0\.3/ }
+  end
+
+  # 動作確認
+  describe command('. ~/.bashrc && redis-cli -h localhost ping') do
+    its(:stdout) { should match /PONG/ }
+  end
+  describe command('. ~/.bashrc && redis-cli -h localhost set foo bar') do
+    its(:stdout) { should match /OK/ }
+  end
+  describe command('. ~/.bashrc && redis-cli -h localhost get foo') do
+    its(:stdout) { should match /bar/ }
   end
 end
