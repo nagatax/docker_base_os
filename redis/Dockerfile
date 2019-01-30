@@ -27,4 +27,4 @@ WORKDIR /data
 EXPOSE 6379
 
 # サーバの起動
-CMD ["redis-server", "/data/redis.conf"]
+CMD ["/usr/local/redis/bin/redis-server", "/data/redis.conf"]
