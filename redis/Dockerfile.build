@@ -44,6 +44,8 @@ RUN set -x; \
     && make -j`nproc` |& tee make.log \
 #    && make check |& tee make_check.log \
     && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log \
+    && cp -a redis.conf "${INSTALL_DIR}/${REDIS}" \
+    && echo "export PATH=${INSTALL_DIR}/${REDIS}/bin"':${PATH}' >> ~/.bashrc \
     && : "不要なファイルの削除" \
     && rm -rf "${SRC_DIR}/${REDIS_PAKAGE_FILE}"
 
