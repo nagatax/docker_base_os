@@ -227,9 +227,7 @@ RUN set -x; \
         libpng-devel \
         libxml2-devel \
         make \
-        mysql-devel \
         openssl-devel \
-        postgresql-devel \
         re2c \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${PHP_PAKAGE}" \
@@ -250,8 +248,7 @@ RUN set -x; \
         --enable-zip \
         --prefix="${INSTALL_DIR}/${PHP}" \
         --with-apxs2="${INSTALL_DIR}/${APACHE}/bin/apxs" \
-        --with-pdo-mysql \
-        --with-pdo-pgsql \
+        --with-pdo-mysql=mysqlnd \
         --with-curl \
         --with-openssl \
     && make -j`nproc` \
