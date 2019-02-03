@@ -48,7 +48,7 @@ RUN set -x; \
 #    && make check |& tee make_check.log \
     && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log \
     \
-    && : "設定ファイルのコピーとパスの設定"
+    && : "設定ファイルのコピーとパスの設定" \
     && cp -a redis.conf "${INSTALL_DIR}/${REDIS}" \
     && echo "export PATH=${INSTALL_DIR}/${REDIS}/bin"':${PATH}' >> ~/.bashrc \
     \
