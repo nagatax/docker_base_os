@@ -1,14 +1,14 @@
-# Description of gcc image
+# Description of base_os image
 
-[![image information](https://dockeri.co/image/nagatax/gcc)](https://hub.docker.com/r/nagatax/gcc)
+[![image information](https://dockeri.co/image/nagatax/base_os)](https://hub.docker.com/r/nagatax/base_os)
 
-![automated](https://img.shields.io/docker/automated/nagatax/gcc.svg)
-![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fgcc.svg)
+![automated](https://img.shields.io/docker/automated/nagatax/base_os.svg)
+![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fbase_os.svg)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 ## Overview
 
-CentOSをベースに下記のソフトウェアをインストールしています。
+Centos7の最新版をベースに下記のソフトウェアをインストールしています。
 
 - gcc 7.4.0
 
@@ -17,12 +17,13 @@ the base_os:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest` ( *docker_gcc/Dockerfile* )](https://github.com/nagatax/docker-library/blob/gcc/master/gcc/Dockerfile)
+- [`latest` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/master/Dockerfile)
+- [`develop` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/develop/Dockerfile)
 
 ## Quick reference
 
 - Where to file issues:  
-  [GitHub](https://github.com/nagatax/docker-library/issues)
+  [GitHub](https://github.com/nagatax/docker_base_os/issues)
 
 - Maintained by:  
   [nagatax](https://github.com/nagatax)
@@ -38,7 +39,7 @@ the base_os:latest tag is always the most recent version currently available.
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker pull nagatax/gcc:latest
+docker pull nagatax/base_os:latest
 ```
 
 ## License
