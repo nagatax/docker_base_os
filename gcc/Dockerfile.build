@@ -59,11 +59,14 @@ RUN set -x; \
         texinfo \
         wget \
         zlib-devel \
+    && : "yumのキャッシュをクリア" \
     && rm -rf /var/cache/yum/* \
     && yum clean all \
+    \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
     && mkdir -p "${INSTALL_DIR}/${GCC}" \
+    \
     && : "gccのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${GCC_URL}" \
@@ -72,9 +75,8 @@ RUN set -x; \
     && ./contrib/download_prerequisites \
     && cd "${BUILD_DIR}/${GCC_PAKAGE}" \
     && "${SRC_DIR}/${GCC_PAKAGE}/configure" \
-        --disable-bootstrap \
+#        --disable-bootstrap \
         --disable-multilib \
-#        --enable-bootstrap \
         --enable-languages=c,c++ \
         --prefix="${INSTALL_DIR}/${GCC}" \
         --with-system-zlib \
@@ -83,16 +85,19 @@ RUN set -x; \
 #    && make check |& tee make_check.log \
     && make install-strip |& tee make_install.log \
 #    && make install |& tee make_install.log \
-#    && ln -s "${INSTALL_DIR}/${GCC_PAKAGE}" "${INSTALL_DIR}/${GCC}" \
     && libtool --finish "${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}" \
+    \
+    && : "パスの設定とデバッグファイルのリネーム" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
     && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \
+    \
     && : "共有ライブラリの設定" \
     && if [ -z ${LD_LIBRARY_PATH} ] ; then \
         echo "LD_LIBRARY_PATH=${INSTALL_DIR}/${GCC}/lib64:${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}:${INSTALL_DIR}/${GCC}/lib/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}/plugin" >> ~/.bashrc ; \
        else \
         echo "LD_LIBRARY_PATH=${INSTALL_DIR}/${GCC}/lib64:${INSTALL_DIR}/${GCC}/libexec/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}:${INSTALL_DIR}/${GCC}/lib/gcc/x86_64-pc-linux-gnu/${GCC_VERSION}/plugin"':${LD_LIBRARY_PATH}' >> ~/.bashrc ; \
        fi \
+    \
     && : "不要なファイルの削除" \
     && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
 
