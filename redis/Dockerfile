@@ -8,18 +8,23 @@ COPY deploy_files/redis /usr/local/redis
 COPY deploy_files/.bashrc /root/.bashrc
 
 RUN set -x; \
-  : "redisユーザの作成" \
+    . ~/.bashrc \
+  \
+  && : "redisユーザの作成" \
   && groupadd -r redis && useradd -g redis -s /sbin/nologin -r redis \
+  \
   && : "必要なパッケージのインストール" \
   && yum install -y \
     tcl \
     tcl-devel \
     which \
-  && : "データフォルダの作成とconfのコピー" \
+  \
+  && : "データフォルダの作成と設定ファイルのコピー" \
   && mkdir /data \
   && cp -a /usr/local/redis/redis.conf /data \
   && chown redis:redis /data
 
+# ボリュームと作業ディレクトリの設定
 VOLUME /data
 WORKDIR /data
 

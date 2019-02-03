@@ -25,6 +25,7 @@ ENV REDIS_URL="http://download.redis.io/releases/${REDIS_PAKAGE_FILE}"
 
 RUN set -x; \
     . ~/.bashrc \
+    \
     && : "関連パッケージのインストール" \
     && yum install -y \
         make \
@@ -32,8 +33,10 @@ RUN set -x; \
         tcl-devel \
         wget \
         which \
+    \
     && : "必要なフォルダの作成" \
     && mkdir -p "${INSTALL_DIR}/${REDIS}" \
+    \
     && : "redisのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${REDIS_URL}" \
@@ -44,8 +47,11 @@ RUN set -x; \
     && make -j`nproc` |& tee make.log \
 #    && make check |& tee make_check.log \
     && make PREFIX="${INSTALL_DIR}/${REDIS}" install |& tee make_install.log \
+    \
+    && : "設定ファイルのコピーとパスの設定"
     && cp -a redis.conf "${INSTALL_DIR}/${REDIS}" \
     && echo "export PATH=${INSTALL_DIR}/${REDIS}/bin"':${PATH}' >> ~/.bashrc \
+    \
     && : "不要なファイルの削除" \
     && rm -rf "${SRC_DIR}/${REDIS_PAKAGE_FILE}"
 
