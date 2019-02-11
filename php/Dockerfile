@@ -3,6 +3,7 @@ FROM centos:7
 # 実行ユーザの変更
 USER root
 
+# 実行ファイルのデプロイ
 COPY deploy_files/apr      /usr/local/apr
 COPY deploy_files/apr-util /usr/local/apr-util
 COPY deploy_files/pcre     /usr/local/pcre
