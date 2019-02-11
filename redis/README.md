@@ -10,7 +10,7 @@
 
 CentOSをベースに下記のソフトウェアをインストールしています。
 
-- redis 5.0.3
+- redis
 
 Note that:
 the redis:latest tag is always the most recent version currently available.
