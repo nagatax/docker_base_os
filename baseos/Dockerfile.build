@@ -39,6 +39,7 @@ ENV GCC_URL="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FI
 ENV GCC_SIG="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}.sig"
 
 RUN set -x; \
+    \
        : "関連パッケージのインストール" \
     && yum install -y \
         autoconf \
