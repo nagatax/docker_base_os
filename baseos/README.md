@@ -8,7 +8,7 @@
 
 ## Overview
 
-Centos7の最新版をベースに下記のソフトウェアをインストールしています。
+CentOSをベースに下記のソフトウェアをインストールしています。
 
 - gcc 7.4.0
 
@@ -17,13 +17,12 @@ the base_os:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/master/Dockerfile)
-- [`develop` ( *docker_base_os/Dockerfile* )](https://github.com/nagatax/docker_base_os/blob/develop/Dockerfile)
+- [`latest` ( *Dockerfile* )](https://github.com/nagatax/docker-library/tree/baseos/master/baseos)
 
 ## Quick reference
 
 - Where to file issues:  
-  [GitHub](https://github.com/nagatax/docker_base_os/issues)
+  [GitHub](https://github.com/nagatax/docker-library/issues)
 
 - Maintained by:  
   [nagatax](https://github.com/nagatax)
@@ -44,4 +43,4 @@ docker pull nagatax/base_os:latest
 
 ## License
 
-This software is released under the MIT License, see [LICENSE](https://github.com/nagatax/docker_base_os/blob/master/LICENSE).
+This software is released under the MIT License, see [LICENSE](https://github.com/nagatax/docker-library/blob/master/LICENSE).
