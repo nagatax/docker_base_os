@@ -17,7 +17,7 @@ the base_os:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest` ( *redis/Dockerfile* )](https://github.com/nagatax/docker-library/tree/redis/master/redis)
+- [`latest` ( *Dockerfile* )](https://github.com/nagatax/docker-library/tree/redis/master/redis)
 
 ## Quick reference
 
