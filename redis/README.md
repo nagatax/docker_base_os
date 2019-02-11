@@ -13,7 +13,7 @@ CentOSをベースに下記のソフトウェアをインストールしてい�
 - redis 5.0.3
 
 Note that:
-the base_os:latest tag is always the most recent version currently available.
+the redis:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
