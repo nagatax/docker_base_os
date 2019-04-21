@@ -215,7 +215,8 @@ ENV PHP_SHA256="87e13d80b0c3a66bd463d1cb47dc101335884a0d192ab924f547f8aed7f70c08
 
 RUN set -x; \
       . ~/.bashrc \
-       : "関連パッケージのインストール" \
+    \
+    && : "関連パッケージのインストール" \
     && yum install -y \
         autoconf \
         automake \
@@ -229,9 +230,11 @@ RUN set -x; \
         make \
         openssl-devel \
         re2c \
+    \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${PHP_PAKAGE}" \
     && mkdir -p "${INSTALL_DIR}/${PHP}" \
+    \
     && : "phpのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${PHP_URL}" \
@@ -255,6 +258,7 @@ RUN set -x; \
     && make install \
     && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${PHP}/bin" >> /root/.bashrc \
     && cp -a "${SRC_DIR}/${PHP_PAKAGE}/php.ini-development" "${INSTALL_DIR}/${PHP}/lib/php.ini" \
+    \
     && : "不要なファイルの削除" \
     && rm -rf "${SRC_DIR}/${PHP_PAKAGE}" \
         "${SRC_DIR}/${PHP_PAKAGE_FILE}" \
@@ -263,13 +267,15 @@ RUN set -x; \
 # Update PEAR and PECL
 RUN set -x; \
       . ~/.bashrc \
-      && pear config-set php_ini "${INSTALL_DIR}/${PHP}/lib/php.ini" \
-      && pecl config-set php_ini "${INSTALL_DIR}/${PHP}/lib/php.ini"
+    \
+    && pear config-set php_ini "${INSTALL_DIR}/${PHP}/lib/php.ini" \
+    && pecl config-set php_ini "${INSTALL_DIR}/${PHP}/lib/php.ini"
 
 # Install pecl pakages
 RUN set -x; \
       . ~/.bashrc \
-      && pecl install \
+    \
+    && pecl install \
 #          geoip \
 #          imagick \
 #          memcached \
@@ -277,4 +283,4 @@ RUN set -x; \
 #          ssh2 \
 #          varnish \
 #          yaml \
-          xdebug
+        xdebug
