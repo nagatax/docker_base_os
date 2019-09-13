@@ -10,6 +10,9 @@
 #  D_IMAGE: image name of Docker
 #  DH_IMAGE: image name of Docker Hub
 #  DH_LATEST: latest image name of Docker Hub
+#
+# Precondition
+#  Need to set DH_USER and DH_PASSWD.
 ##################################################
 
 # Set shell option
