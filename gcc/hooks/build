@@ -1,6 +1,13 @@
 #!/bin/bash
 set -eu
 
+# Installing version
+PACKAGE=gcc
+PACKAGE_VERSION=9.2.0
+D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
 
+# Create building image
+echo "Building image"
+docker image build -t ${D_IMAGE} . -f Dockerfile.build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION}
 
 
