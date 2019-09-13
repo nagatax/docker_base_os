@@ -122,11 +122,11 @@ RUN set -x; \
 
 # Install openssl
 ENV OPENSSL="openssl"
-ENV OPENSSL_VERSION="1.1.1a"
+ENV OPENSSL_VERSION="1.1.1d"
 ENV OPENSSL_PAKAGE="${OPENSSL}-${OPENSSL_VERSION}"
 ENV OPENSSL_PAKAGE_FILE="${OPENSSL_PAKAGE}.tar.gz"
 ENV OPENSSL_URL="https://www.openssl.org/source/${OPENSSL_PAKAGE_FILE}"
-ENV OPENSSL_SHA256="fc20130f8b7cbd2fb918b2f14e2f429e109c31ddd0fb38fc5d71d9ffed3f9f41 *${OPENSSL_PAKAGE_FILE}"
+ENV OPENSSL_SHA256="1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2 *${OPENSSL_PAKAGE_FILE}"
 
 RUN set -x; \
       . ~/.bashrc \
@@ -161,11 +161,11 @@ RUN set -x; \
 
 # Install Apache
 ENV APACHE="httpd"
-ENV APACHE_VERSION="2.4.38"
+ENV APACHE_VERSION="2.4.41"
 ENV APACHE_PAKAGE="${APACHE}-${APACHE_VERSION}"
 ENV APACHE_PAKAGE_FILE="${APACHE_PAKAGE}.tar.gz"
-ENV APACHE_URL="http://ftp.riken.jp/net/apache//${APACHE}/${APACHE_PAKAGE_FILE}"
-ENV APACHE_SHA256="38d0b73aa313c28065bf58faf64cec12bf7c7d5196146107df2ad07541aa26a6 *${APACHE_PAKAGE_FILE}"
+ENV APACHE_URL="http://ftp.jaist.ac.jp/pub/apache//${APACHE}/${APACHE_PAKAGE_FILE}"
+ENV APACHE_SHA256="3c0f9663240beb0f008acf3b4501c4f339d7467ee345a36c86c46b4d6f3a5461 *${APACHE_PAKAGE_FILE}"
 
 RUN set -x; \
       . ~/.bashrc \
@@ -207,11 +207,11 @@ RUN set -x; \
 
 # Install PHP
 ENV PHP="php"
-ENV PHP_VERSION="7.2.14"
+ENV PHP_VERSION="7.3.9"
 ENV PHP_PAKAGE="${PHP}-${PHP_VERSION}"
 ENV PHP_PAKAGE_FILE="${PHP}-${PHP_VERSION}.tar.gz"
-ENV PHP_URL="http://jp2.php.net/distributions/${PHP_PAKAGE_FILE}"
-ENV PHP_SHA256="87e13d80b0c3a66bd463d1cb47dc101335884a0d192ab924f547f8aed7f70c08 *${PHP_PAKAGE_FILE}"
+ENV PHP_URL="https://www.php.net/distributions/${PHP_PAKAGE_FILE}"
+ENV PHP_SHA256="5ecc1b1ad7228ed2e99a970c45358871644fcab1d9fd079a7b129326a7bde42d *${PHP_PAKAGE_FILE}"
 
 RUN set -x; \
       . ~/.bashrc \
@@ -227,6 +227,7 @@ RUN set -x; \
         libjpeg-devel \
         libpng-devel \
         libxml2-devel \
+        libzip-devel \
         make \
         openssl-devel \
         re2c \
@@ -254,6 +255,7 @@ RUN set -x; \
         --with-pdo-mysql=mysqlnd \
         --with-curl \
         --with-openssl \
+        --without-libzip \
     && make -j`nproc` \
     && make install \
     && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${PHP}/bin" >> /root/.bashrc \
