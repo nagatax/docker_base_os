@@ -8,18 +8,17 @@
 
 ## Overview
 
-Centos7の最新版をベースに下記のソフトウェアをインストールしています。
+CentOSをベースに下記のソフトウェアをインストールしています。
 
-- php 7.2.13
-- apache 2.4.37
+- php
+- apache
 
 Note that:
-the base_os:latest tag is always the most recent version currently available.
+the php:latest tag is always the most recent version currently available.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest` ( *php/Dockerfile* )](https://github.com/nagatax/docker-library/tree/php-master/php)
-- [`develop` ( *php/Dockerfile* )](https://github.com/nagatax/docker-library/tree/php-develop/php)
+- [`latest` ( *Dockerfile* )](https://github.com/nagatax/docker-library/tree/php/master/php)
 
 ## Quick reference
 

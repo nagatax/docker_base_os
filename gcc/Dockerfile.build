@@ -31,8 +31,8 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 #   (asanの試験結果がFAILになる)
 #   また、試験中にスタック領域が不足するため、ulimitコマンドでスタック領域を拡張する。
 ##################################################
-ENV GCC="gcc"
-ENV GCC_VERSION="7.4.0"
+ARG GCC
+ARG GCC_VERSION
 ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
 ENV GCC_URL="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
@@ -89,7 +89,7 @@ RUN set -x; \
     \
     && : "パスの設定とデバッグファイルのリネーム" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
-    && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \
+    && rm -f "${INSTALL_DIR}/${GCC}"/lib64/libstdc++.so.*-gdb.py \
     \
     && : "共有ライブラリの設定" \
     && if [ -z ${LD_LIBRARY_PATH} ] ; then \
@@ -99,7 +99,7 @@ RUN set -x; \
        fi \
     \
     && : "不要なファイルの削除" \
-    && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
+    && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${BUILD_DIR}/${GCC_PAKAGE}"
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
