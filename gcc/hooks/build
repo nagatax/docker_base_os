@@ -23,7 +23,7 @@ D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
 
 # Create building image
 echo "Building image"
-docker image build -t ${D_IMAGE} . -f Dockerfile.build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION}
+docker image build -t ${D_IMAGE} . --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION}
 
 # Register in Docker Hub
 DH_IMAGE=${DH_USER}/${D_IMAGE}
