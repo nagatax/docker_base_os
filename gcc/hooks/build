@@ -4,10 +4,28 @@ set -eu
 # Installing version
 PACKAGE=gcc
 PACKAGE_VERSION=9.2.0
+PACKAGE_LATEST=9.2.0
 D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
 
 # Create building image
 echo "Building image"
 docker image build -t ${D_IMAGE} . -f Dockerfile.build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION}
 
+# Register in Docker Hub
+DH_IMAGE=${DH_USER}/${D_IMAGE}
+docker tag ${D_IMAGE} ${DH_IMAGE}
+docker login -u ${DH_USER} -p ${DH_PASSWD}
 
+## Push docker image
+echo "Pushing docker image"
+docker push ${DH_IMAGE}
+
+if [ "x${PACKAGE_VERSION}" = "x${PACKAGE_LATEST}" ]; then
+  ## Push docker latest image
+  echo "Pushing docker latest image"
+  DH_LATEST=${DH_USER}/${PACKAGE}:latest
+  docker tag ${D_IMAGE} ${DH_LATEST}
+  docker push ${DH_LATEST}
+fi
+
+docker logout
