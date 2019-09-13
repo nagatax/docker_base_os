@@ -99,7 +99,7 @@ RUN set -x; \
        fi \
     \
     && : "不要なファイルの削除" \
-    && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}"
+    && rm -rf "${SRC_DIR}/${GCC_PAKAGE_FILE}" "${BUILD_DIR}/${GCC_PAKAGE}"
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
