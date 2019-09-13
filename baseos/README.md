@@ -8,9 +8,7 @@
 
 ## Overview
 
-CentOSをベースに下記のソフトウェアをインストールしています。
-
-- gcc 7.4.0
+Dockerイメージの基底イメージです。
 
 Note that:  
 the base_os:latest tag is always the most recent version currently available.
