@@ -1,0 +1,6 @@
+name: php
+title: php
+summary: Verify that php are installed
+version: 1.0.0
+supports:
+  - platform-family: linux
