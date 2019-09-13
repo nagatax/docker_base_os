@@ -89,7 +89,7 @@ RUN set -x; \
     \
     && : "パスの設定とデバッグファイルのリネーム" \
     && echo "export PATH=${INSTALL_DIR}/${GCC}/bin"':${PATH}' >> ~/.bashrc \
-    && mv "${INSTALL_DIR}/${GCC}/lib64/libstdc++.so.6.0.24-gdb.py" "${INSTALL_DIR}/${GCC}/lib64/ignore-libstdc++.so.6.0.24-gdb.py" \
+    && rm -f "${INSTALL_DIR}/${GCC}"/lib64/libstdc++.so.*-gdb.py \
     \
     && : "共有ライブラリの設定" \
     && if [ -z ${LD_LIBRARY_PATH} ] ; then \
