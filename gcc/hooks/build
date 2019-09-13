@@ -1,4 +1,18 @@
 #!/bin/bash
+
+##################################################
+# Dockerイメージを作成する
+#
+# Environment Variables
+#  PACKAGE: package name
+#  PACKAGE_VERSION: package version
+#  PACKAGE_LATEST: latest version of package
+#  D_IMAGE: image name of Docker
+#  DH_IMAGE: image name of Docker Hub
+#  DH_LATEST: latest image name of Docker Hub
+##################################################
+
+# Set shell option
 set -eu
 
 # Installing version
@@ -31,6 +45,7 @@ fi
 docker logout
 
 # Register tag in Git Hub
+echo "Pushing git tag"
 git tag -a "gcc-v${PACKAGE_VERSION}" -m "gcc version ${PACKAGE_VERSION}"
 git push origin "gcc-v${PACKAGE_VERSION}"
 
