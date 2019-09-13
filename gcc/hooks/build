@@ -10,6 +10,9 @@
 #  D_IMAGE: image name of Docker
 #  DH_IMAGE: image name of Docker Hub
 #  DH_LATEST: latest image name of Docker Hub
+#
+# Precondition
+#  Need to set DH_USER and DH_PASSWD.
 ##################################################
 
 # Set shell option
@@ -23,7 +26,7 @@ D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
 
 # Create building image
 echo "Building image"
-docker image build -t ${D_IMAGE} . -f Dockerfile.build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION}
+docker image build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION} -t ${D_IMAGE} .
 
 # Register in Docker Hub
 DH_IMAGE=${DH_USER}/${D_IMAGE}
