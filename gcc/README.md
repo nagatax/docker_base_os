@@ -10,7 +10,7 @@
 
 CentOSをベースに下記のソフトウェアをインストールしています。
 
-- gcc 7.4.0
+- gcc
 
 Note that:  
 the base_os:latest tag is always the most recent version currently available.
