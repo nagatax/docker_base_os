@@ -3,4 +3,4 @@ set -eu
 
 # ビルドイメージの作成
 echo "Building docker image"
-docker image build -t ${IMAGE_NAME} .
+docker image build -f Dockerfile.centos -t ${IMAGE_NAME} .
