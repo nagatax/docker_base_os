@@ -1,19 +1,4 @@
-FROM centos:7
-
-##################################################
-# 共通処理
-##################################################
-
-# 共通の設定
-ENV SRC_DIR="/usr/local/src" \
-    INSTALL_DIR="/usr/local" \
-    BUILD_DIR="/usr/local/build"
-
-# 実行ユーザの変更
-USER root
-
-# GPG keyの設定
-RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+FROM baseos:latest
 
 ##################################################
 # gccのインストール
@@ -37,6 +22,11 @@ ENV GCC_PAKAGE="${GCC}-${GCC_VERSION}"
 ENV GCC_PAKAGE_FILE="${GCC_PAKAGE}.tar.gz"
 ENV GCC_URL="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}"
 ENV GCC_SIG="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}.sig"
+
+# IMAGE INFORMATION
+LABEL title="${GCC}" \
+    version="${GCC_VERSION}" \
+    description="This is image which installed the gcc"
 
 RUN set -x; \
        : "システムを最新の状態に更新" \
