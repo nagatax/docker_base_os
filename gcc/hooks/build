@@ -30,19 +30,19 @@ docker image build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_
 
 # Register in Docker Hub
 DH_IMAGE=${DH_USER}/${D_IMAGE}
-docker tag ${D_IMAGE} ${DH_IMAGE}
+docker image tag ${D_IMAGE} ${DH_IMAGE}
 docker login -u ${DH_USER} -p ${DH_PASSWD}
 
 ## Push docker image
 echo "Pushing docker image"
-docker push ${DH_IMAGE}
+docker image push ${DH_IMAGE}
 
 if [ "x${PACKAGE_VERSION}" = "x${PACKAGE_LATEST}" ]; then
   ## Push docker latest image
   echo "Pushing docker latest image"
   DH_LATEST=${DH_USER}/${PACKAGE}:latest
-  docker tag ${D_IMAGE} ${DH_LATEST}
-  docker push ${DH_LATEST}
+  docker image tag ${D_IMAGE} ${DH_LATEST}
+  docker image push ${DH_LATEST}
 fi
 
 docker logout
