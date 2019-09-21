@@ -5,9 +5,9 @@ FROM centos:7
 ##################################################
 
 # 共通の設定
-ENV SRC_DIR="/usr/local/src"
-ENV INSTALL_DIR="/usr/local"
-ENV BUILD_DIR="/usr/local/build"
+ENV SRC_DIR="/usr/local/src" \
+    INSTALL_DIR="/usr/local" \
+    BUILD_DIR="/usr/local/build"
 
 # 実行ユーザの変更
 USER root
