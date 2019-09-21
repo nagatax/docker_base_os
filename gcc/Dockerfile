@@ -39,9 +39,9 @@ ENV GCC_URL="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FI
 ENV GCC_SIG="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}.sig"
 
 RUN set -x; \
-    && : "システムを最新の状態に更新" \
+       : "システムを最新の状態に更新" \
     && yum update -y \
-       : "関連パッケージのインストール" \
+    && : "関連パッケージのインストール" \
     && yum install -y \
         autoconf \
         autogen \
