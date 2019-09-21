@@ -5,9 +5,9 @@ FROM centos:7
 ##################################################
 
 # 共通の設定
-ENV SRC_DIR="/usr/local/src"
-ENV INSTALL_DIR="/usr/local"
-ENV BUILD_DIR="/usr/local/build"
+ENV SRC_DIR="/usr/local/src" \
+    INSTALL_DIR="/usr/local" \
+    BUILD_DIR="/usr/local/build"
 
 # 実行ユーザの変更
 USER root
@@ -39,7 +39,9 @@ ENV GCC_URL="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FI
 ENV GCC_SIG="http://ftp.jaist.ac.jp/pub/GNU/${GCC}/${GCC_PAKAGE}/${GCC_PAKAGE_FILE}.sig"
 
 RUN set -x; \
-       : "関連パッケージのインストール" \
+       : "システムを最新の状態に更新" \
+    && yum update -y \
+    && : "関連パッケージのインストール" \
     && yum install -y \
         autoconf \
         autogen \
@@ -59,9 +61,6 @@ RUN set -x; \
         texinfo \
         wget \
         zlib-devel \
-    && : "yumのキャッシュをクリア" \
-    && rm -rf /var/cache/yum/* \
-    && yum clean all \
     \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${GCC_PAKAGE}" \
@@ -101,7 +100,16 @@ RUN set -x; \
     && : "不要なファイルの削除" \
     && rm -rf "${SRC_DIR}/${GCC_PAKAGE}" \
         "${SRC_DIR}/${GCC_PAKAGE_FILE}" \
-        "${BUILD_DIR}/${GCC_PAKAGE}"
+        "${BUILD_DIR}/${GCC_PAKAGE}" \
+    && : "不要なパッケージの削除" \
+    && yum remove -y \
+        gcc \
+        gcc-c++ \
+        perl \
+        wget \
+    && : "yumのキャッシュをクリア" \
+    && rm -rf /var/cache/yum/* \
+    && yum clean all
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
