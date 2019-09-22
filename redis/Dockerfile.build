@@ -4,7 +4,7 @@ FROM nagatax/gcc:latest
 # redisのインストール
 ##################################################
 ENV REDIS="redis"
-ENV REDIS_VERSION="5.0.3"
+ENV REDIS_VERSION="5.0.5"
 ENV REDIS_PAKAGE="${REDIS}-${REDIS_VERSION}"
 ENV REDIS_PAKAGE_FILE="${REDIS_PAKAGE}.tar.gz"
 ENV REDIS_URL="http://download.redis.io/releases/${REDIS_PAKAGE_FILE}"
