@@ -1,4 +1,4 @@
-# Description of php image
+# Description of redis image
 
 [![image information](https://dockeri.co/image/nagatax/redis)](https://hub.docker.com/r/nagatax/redis)
 
@@ -35,7 +35,7 @@ CentOSをベースに下記のソフトウェアをインストールしてい�
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker image pull nagatax/redis:latest
+docker image pull nagatax/redis:[TAG]
 ```
 
 ## License
