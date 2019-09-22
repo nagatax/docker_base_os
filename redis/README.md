@@ -12,9 +12,6 @@ CentOSをベースに下記のソフトウェアをインストールしてい�
 
 - redis
 
-Note that:
-the redis:latest tag is always the most recent version currently available.
-
 ## Supported tags and respective `Dockerfile` links
 
 - [`latest` ( *Dockerfile* )](https://github.com/nagatax/docker-library/tree/redis/master/redis)
@@ -38,7 +35,7 @@ the redis:latest tag is always the most recent version currently available.
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker pull nagatax/redis:latest
+docker image pull nagatax/redis:latest
 ```
 
 ## License
