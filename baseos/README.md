@@ -10,12 +10,9 @@
 
 Dockerイメージの基底イメージです。
 
-Note that:  
-the base_os:latest tag is always the most recent version currently available.
+## `Dockerfile` link
 
-## Supported tags and respective `Dockerfile` links
-
-- [`latest` ( *Dockerfile* )](https://github.com/nagatax/docker-library/tree/baseos/master/baseos)
+- [*Dockerfile*](https://github.com/nagatax/docker-library/tree/baseos/master/baseos)
 
 ## Quick reference
 
