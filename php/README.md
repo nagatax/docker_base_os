@@ -13,9 +13,6 @@ CentOSをベースに下記のソフトウェアをインストールしてい�
 - php
 - apache
 
-Note that:
-the php:latest tag is always the most recent version currently available.
-
 ## Supported tags and respective `Dockerfile` links
 
 - [`latest` ( *Dockerfile* )](https://github.com/nagatax/docker-library/tree/php/master/php)
@@ -39,7 +36,7 @@ the php:latest tag is always the most recent version currently available.
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker pull nagatax/php:latest
+docker image pull nagatax/php:[TAG]
 ```
 
 ## License

@@ -1,21 +1,6 @@
 FROM nagatax/gcc:latest
 
 ##################################################
-# 共通処理
-##################################################
-
-# 共通の設定
-ENV SRC_DIR="/usr/local/src"
-ENV INSTALL_DIR="/usr/local"
-ENV BUILD_DIR="/usr/local/build"
-
-# 実行ユーザの変更
-USER root
-
-# GPG keyの設定
-RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
-##################################################
 # Apacheのインストール
 ##################################################
 # Install apr
