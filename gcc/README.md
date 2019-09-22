@@ -12,9 +12,6 @@ CentOSをベースに下記のソフトウェアをインストールしてい�
 
 - gcc
 
-Note that:  
-the base_os:latest tag is always the most recent version currently available.
-
 ## Supported tags and respective `Dockerfile` links
 
 - [`latest` ( *docker_gcc/Dockerfile* )](https://github.com/nagatax/docker-library/blob/gcc/master/gcc/Dockerfile)
@@ -38,7 +35,7 @@ the base_os:latest tag is always the most recent version currently available.
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker pull nagatax/gcc:latest
+docker image pull nagatax/gcc:[TAG]
 ```
 
 ## License
