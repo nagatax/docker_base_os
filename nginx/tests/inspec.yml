@@ -1,0 +1,6 @@
+name: nginx
+title: nginx
+summary: Verify that nginx are installed
+version: 1.0.0
+supports:
+  - platform-family: linux
