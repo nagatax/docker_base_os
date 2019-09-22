@@ -1,6 +1,20 @@
 #!/bin/bash
+
+##################################################
+# Create base image
+##################################################
+
+# Set shell option
 set -eu
 
-# ビルドイメージの作成
+# CentOS
+
+## Building docker image
 echo "Building docker image"
-docker image build -f Dockerfile.centos -t ${IMAGE_NAME} .
+docker image build . -t baseos:centos_7 -f Dockerfile.centos
+
+# Ubuntu
+
+## Building docker image
+echo "Building docker image"
+docker image build . -t baseos:ubuntu_bionic -f Dockerfile.ubuntu
