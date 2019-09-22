@@ -36,7 +36,7 @@ the base_os:latest tag is always the most recent version currently available.
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker pull nagatax/base_os:latest
+docker pull nagatax/base_os:[TAG]
 ```
 
 ## License
