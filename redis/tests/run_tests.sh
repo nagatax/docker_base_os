@@ -9,7 +9,7 @@ docker container run -it -d --name sut "${IMAGE_NAME}"
 
 # execute inspec
 inspec exec . --controls=docker --chef-license=accept-silent
-inspec exec . -t docker://sut --controls=gcc
+inspec exec . -t docker://sut --controls=redis
 
 # stop docker container
 docker container stop sut

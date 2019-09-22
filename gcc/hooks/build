@@ -1,19 +1,54 @@
 #!/bin/bash
+
+##################################################
+# Dockerイメージを作成する
+#
+# Environment Variables
+#  PACKAGE: package name
+#  PACKAGE_VERSION: package version
+#  PACKAGE_LATEST: latest version of package
+#  D_IMAGE: image name of Docker
+#  DH_IMAGE: image name of Docker Hub
+#  DH_LATEST: latest image name of Docker Hub
+#
+# Precondition
+#  Need to set DH_USER and DH_PASSWD.
+##################################################
+
+# Set shell option
 set -eu
 
-# ビルドイメージの作成
-echo "image for building"
-docker image build -t ${IMAGE_NAME} . -f Dockerfile.build
+# Installing version
+PACKAGE=gcc
+PACKAGE_VERSION=9.2.0
+PACKAGE_LATEST=9.2.0
+D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
 
-mkdir deploy_files
-docker container create --name extract ${IMAGE_NAME}
-docker container cp extract:/usr/local/gcc deploy_files
-docker container cp extract:/root/.bashrc deploy_files
-docker container rm extract
-docker image rm ${IMAGE_NAME}
+# Create building image
+echo "Building image"
+docker image build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION} -t ${D_IMAGE} .
 
-# リリースイメージの作成
-echo "Building image for release"
-docker image build --no-cache -t ${IMAGE_NAME} .
+# Register in Docker Hub
+DH_IMAGE=${DH_USER}/${D_IMAGE}
+docker image tag ${D_IMAGE} ${DH_IMAGE}
+docker login -u ${DH_USER} -p ${DH_PASSWD}
 
-rm -rf deploy_files
+## Push docker image
+echo "Pushing docker image"
+docker image push ${DH_IMAGE}
+
+if [ "x${PACKAGE_VERSION}" = "x${PACKAGE_LATEST}" ]; then
+  ## Push docker latest image
+  echo "Pushing docker latest image"
+  DH_LATEST=${DH_USER}/${PACKAGE}:latest
+  docker image tag ${D_IMAGE} ${DH_LATEST}
+  docker image push ${DH_LATEST}
+fi
+
+docker logout
+
+# Register tag in Git Hub
+echo "Pushing git tag"
+git tag -a "gcc-v${PACKAGE_VERSION}" -m "gcc version ${PACKAGE_VERSION}"
+git push origin "gcc-v${PACKAGE_VERSION}"
+

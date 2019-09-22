@@ -1,20 +1,18 @@
-# Description of php image
+# Description of base_os image
 
-[![image information](https://dockeri.co/image/nagatax/redis)](https://hub.docker.com/r/nagatax/redis)
+[![image information](https://dockeri.co/image/nagatax/base_os)](https://hub.docker.com/r/nagatax/base_os)
 
-![automated](https://img.shields.io/docker/automated/nagatax/redis.svg)
-![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fredis.svg)
+![automated](https://img.shields.io/docker/automated/nagatax/base_os.svg)
+![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fbase_os.svg)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 ## Overview
 
-CentOSをベースに下記のソフトウェアをインストールしています。
+Dockerイメージの基底イメージです。
 
-- redis
+## `Dockerfile` link
 
-## Supported tags and respective `Dockerfile` links
-
-- [`latest` ( *Dockerfile* )](https://github.com/nagatax/docker-library/tree/redis/master/redis)
+- [*Dockerfile*](https://github.com/nagatax/docker-library/tree/baseos/master/baseos)
 
 ## Quick reference
 
@@ -35,7 +33,7 @@ CentOSをベースに下記のソフトウェアをインストールしてい�
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker image pull nagatax/redis:latest
+docker image pull nagatax/base_os:[TAG]
 ```
 
 ## License

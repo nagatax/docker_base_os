@@ -2,23 +2,5 @@
 set -eu
 
 # ビルドイメージの作成
-echo "image for building"
-docker build -t ${IMAGE_NAME} . -f Dockerfile.build
-
-mkdir deploy_files
-docker container create --name extract ${IMAGE_NAME}
-docker container cp extract:/usr/local/apr deploy_files
-docker container cp extract:/usr/local/apr-util deploy_files
-docker container cp extract:/usr/local/pcre deploy_files
-docker container cp extract:/usr/local/openssl deploy_files
-docker container cp extract:/usr/local/httpd deploy_files
-docker container cp extract:/usr/local/php deploy_files
-docker container cp extract:/root/.bashrc deploy_files
-docker container rm -f extract
-docker rmi ${IMAGE_NAME}
-
-# リリースイメージの作成
-echo "Building image for release"
-docker build --no-cache -t ${IMAGE_NAME} .
-
-rm -rf deploy_files
+echo "Building docker image"
+docker image build -t ${IMAGE_NAME} .
