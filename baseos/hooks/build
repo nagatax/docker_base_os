@@ -2,6 +2,9 @@
 
 ##################################################
 # Create base image
+#
+# Precondition
+#  Need to set DH_USER and DH_PASSWD.
 ##################################################
 
 # Set shell option
@@ -11,10 +14,17 @@ set -eu
 
 ## Building docker image
 echo "Building docker image"
-docker image build . -t baseos:centos_7 -f Dockerfile.centos
+docker image build . -t ${DH_USER}/base_os:centos_7 -f Dockerfile.centos
 
 # Ubuntu
 
 ## Building docker image
 echo "Building docker image"
-docker image build . -t baseos:ubuntu_bionic -f Dockerfile.ubuntu
+docker image build . -t ${DH_USER}/base_os:ubuntu_bionic -f Dockerfile.ubuntu
+
+## Push docker image
+echo "Pushing docker image"
+docker login -u ${DH_USER} -p ${DH_PASSWD}
+docker image push ${DH_USER}/base_os:centos_7
+docker image push ${DH_USER}/base_os:ubuntu_bionic
+docker logout
