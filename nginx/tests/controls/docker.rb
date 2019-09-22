@@ -13,7 +13,7 @@ control 'docker' do
     its('id')      { should_not eq '' }
     its('image')   { should eq ENV['IMAGE_NAME'] }
     its('repo')    { should eq ENV['DOCKER_REPO'] }
-    its('tag')     { should eq ENV['CACHE_TAG'] }
+    #its('tag')     { should eq ENV['CACHE_TAG'] }
     its('ports')   { should eq '80/tcp' }
     its('command') { should eq '/usr/local/nginx/sbin/nginx -g \'daemon off;\'' }
   end
