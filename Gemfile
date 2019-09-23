@@ -1,5 +1,9 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
-gem 'serverspec'
-gem 'rake'
-gem 'docker-api'
+source "https://rubygems.org"
+
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+gem "serverspec"
+gem "rake"
+gem "docker-api"
