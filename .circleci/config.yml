@@ -13,13 +13,6 @@ jobs:
           command: |
             docker image build . -t $DOCKER_USER/base_os:centos_7 -f baseos/Dockerfile.centos
             docker image build . -t $DOCKER_USER/base_os:ubuntu_bionic -f baseos/Dockerfile.ubuntu
-  test:
-    working_directory: ~/baseos
-    docker:
-      - image: docker:stable-git
-    steps:
-      - checkout
-      - setup_remote_docker
       - run:
           name: Update system
           command: | 
@@ -36,13 +29,6 @@ jobs:
           name: Testing Docker
           command: |
             source run_spec.sh
-  deploy:
-    working_directory: ~/baseos
-    docker:
-      - image: docker:stable-git
-    steps:
-      - checkout
-      - setup_remote_docker
       - deploy:
           name: Deploy to Docker Hub
           command: |
@@ -56,11 +42,6 @@ workflows:
     jobs:
       - build:
           context: dockerhub
-      - test:
-          context: dockerhub
-          requires:
-            - build
-      - deploy:
-          context: dockerhub
-          requires:
-            - test
+          filters:
+            branches:
+              only: baseos/master
