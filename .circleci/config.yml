@@ -61,6 +61,6 @@ workflows:
           requires:
             - build
       - deploy:
-          context: dockerhub 
+          context: dockerhub
           requires:
             - test
