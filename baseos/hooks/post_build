@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-
-# テストスイートの実行
-source run_tests.sh

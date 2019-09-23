@@ -9,6 +9,6 @@ describe file('/root/.bashrc') do
 end
 
 # OSのバージョン確認
-describe command('cat /etc/redhat-release') do
-  its(:stdout) { should match /CentOS Linux release 7/ }
-end
+# describe command('cat /etc/redhat-release') do
+#   its(:stdout) { should match /CentOS Linux release 7.7.1908 (Core)/ }
+# end
