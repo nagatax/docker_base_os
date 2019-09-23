@@ -46,7 +46,7 @@ jobs:
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            echo $DOCKER_PASS | \
+            echo $DOCKER_PASS | base64 --decode | \
             docker login -u $DOCKER_USER --password-stdin
             docker image push $DOCKER_USER/base_os:centos_7
             docker image push $DOCKER_USER/base_os:ubuntu_bionic
