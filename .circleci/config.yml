@@ -1,0 +1,63 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/baseos
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Building Docker
+          command: |
+            docker image build . -t $DOCKER_USER/base_os:centos_7 -f baseos/Dockerfile.centos
+            docker image build . -t $DOCKER_USER/base_os:ubuntu_bionic -f baseos/Dockerfile.ubuntu
+  test:
+    working_directory: ~/baseos
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Update system
+          command: | 
+            apk update
+            apk upgrade
+      - run: 
+          name: Set up serverspec environment
+          command: |
+            apk add ruby ruby-rdoc ruby-etc
+            gem install bundler
+            bundle update --bundler
+            bundle install --path vendor/bundler
+      - run:
+          name: Testing Docker
+          command: |
+            source run_spec.sh
+  deploy:
+    working_directory: ~/baseos
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - deploy:
+          name: Deploy to Docker Hub
+          command: |
+            echo $DOCKER_PASS | \
+            docker login -u $DOCKER_USER --password-stdin
+            docker image push $DOCKER_USER/base_os:centos_7
+            docker image push $DOCKER_USER/base_os:ubuntu_bionic
+workflows:
+  version: 2
+  build and test and deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
