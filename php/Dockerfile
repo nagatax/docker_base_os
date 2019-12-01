@@ -285,11 +285,7 @@ RUN set -x; \
         libyaml-devel \
     \
     && pecl install \
-#          geoip \
         imagick \
         memcached \
-        oauth \
-#          ssh2 \
-#          varnish \
         yaml \
         xdebug
