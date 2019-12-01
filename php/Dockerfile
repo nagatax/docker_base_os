@@ -289,4 +289,7 @@ RUN set -x; \
         memcached \
         phpredis \
         yaml \
-        xdebug
+        xdebug \
+    && : "Setting of xdebug" \
+    && : "Replace 'zend_extension_ts' with 'zend_extension'. Because xdebug is not thread safe" \
+    && sed -i -e 's/^zend_extension_ts="xdebug.so"/zend_extension="xdebug.so"/' /usr/local/php/lib/php.ini
