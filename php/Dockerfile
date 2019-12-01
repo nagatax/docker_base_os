@@ -287,5 +287,6 @@ RUN set -x; \
     && pecl install \
         imagick \
         memcached \
+        phpredis \
         yaml \
         xdebug
