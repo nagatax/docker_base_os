@@ -231,6 +231,8 @@ RUN set -x; \
         openssl-devel \
         re2c \
         sqlite-devel \
+        zip \
+        unzip \
     \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${PHP_PAKAGE}" \
@@ -257,6 +259,7 @@ RUN set -x; \
         --with-curl \
         --with-openssl \
         --without-libzip \
+        --with-zlib \
     && make -j`nproc` \
     && make install \
     && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${PHP}/bin" >> /root/.bashrc \
