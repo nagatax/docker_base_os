@@ -187,16 +187,30 @@ RUN set -x; \
         "${BUILD_DIR}/${APACHE_PAKAGE}"
 
 ##################################################
+# onigurumaのインストール
+##################################################
+
+RUN set -x; \
+      . ~/.bashrc \
+    \
+    && : "必要なフォルダの作成" \
+    && yum install -y \
+        epel-release \
+        http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
+    && yum --enablerepo=remi install -y oniguruma-devel \
+    && yum clean all
+
+##################################################
 # PHPのインストール
 ##################################################
 
 # Install PHP
 ENV PHP="php"
-ENV PHP_VERSION="7.3.9"
+ENV PHP_VERSION="7.4.0"
 ENV PHP_PAKAGE="${PHP}-${PHP_VERSION}"
 ENV PHP_PAKAGE_FILE="${PHP}-${PHP_VERSION}.tar.gz"
 ENV PHP_URL="https://www.php.net/distributions/${PHP_PAKAGE_FILE}"
-ENV PHP_SHA256="5ecc1b1ad7228ed2e99a970c45358871644fcab1d9fd079a7b129326a7bde42d *${PHP_PAKAGE_FILE}"
+ENV PHP_SHA256="004a1a8176176ee1b5c112e73d705977507803f425f9e48cb4a84f42b22abf22 *${PHP_PAKAGE_FILE}"
 
 RUN set -x; \
       . ~/.bashrc \
@@ -216,6 +230,7 @@ RUN set -x; \
         make \
         openssl-devel \
         re2c \
+        sqlite-devel \
     \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${PHP_PAKAGE}" \
@@ -238,6 +253,7 @@ RUN set -x; \
         --prefix="${INSTALL_DIR}/${PHP}" \
         --with-apxs2="${INSTALL_DIR}/${APACHE}/bin/apxs" \
         --with-pdo-mysql=mysqlnd \
+        --with-pear \
         --with-curl \
         --with-openssl \
         --without-libzip \
