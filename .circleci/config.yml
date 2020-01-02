@@ -6,8 +6,8 @@ jobs:
       - image: docker:stable-git
     steps:
       - checkout
-      # - setup_remote_docker:
-      #     docker_layer_caching: true
+      - setup_remote_docker:
+          docker_layer_caching: false
       - run:
           name: Building Docker
           command: |
@@ -44,8 +44,8 @@ jobs:
       - image: docker:stable-git
     steps:
       - checkout
-      # - setup_remote_docker:
-      #     docker_layer_caching: true
+      - setup_remote_docker:
+          docker_layer_caching: false
       - run:
           name: Building Docker
           command: |
