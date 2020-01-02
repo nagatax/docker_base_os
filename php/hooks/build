@@ -1,6 +1,8 @@
-#!/bin/bash
-set -eu
+#!/bin/sh
 
-# ビルドイメージの作成
-echo "Building docker image"
+# Enable BuildKit
+export DOCKER_BUILDKIT=1
+
+# Building a docker image
+echo "Building a docker image"
 docker image build -t ${IMAGE_NAME} .
