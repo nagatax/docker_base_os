@@ -52,6 +52,7 @@ RUN set -x; \
         sqlite-devel \
         zip \
         unzip \
+        wget \
     \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${PHP_PAKAGE}" \
@@ -72,7 +73,7 @@ RUN set -x; \
         --enable-soap \
         --enable-zip \
         --prefix="${INSTALL_DIR}/${PHP}" \
-        --with-apxs2="${INSTALL_DIR}/${APACHE}/bin/apxs" \
+        --with-apxs2="${INSTALL_DIR}/httpd/bin/apxs" \
         --with-pdo-mysql=mysqlnd \
         --with-pear \
         --with-curl \
