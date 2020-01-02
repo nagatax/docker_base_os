@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Enable BuildKit
+export DOCKER_BUILDKIT=1
+
+# Building a docker image
+echo "Building a docker image"
+docker image build -t "${IMAGE_NAME}" .
