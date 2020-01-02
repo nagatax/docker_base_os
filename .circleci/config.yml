@@ -8,6 +8,7 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
+          version: 18.09.3
       - run:
           name: Building Docker
           command: |
@@ -46,6 +47,7 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
+          version: 18.09.3
       - run:
           name: Building Docker
           command: |
