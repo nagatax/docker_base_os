@@ -17,7 +17,8 @@ USER root
 RUN set -x; \
     : "Set a GPG key" \
     && rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 \
-    && yum update -y
+    && yum update -y \
+    && yum clean all
 
 # Set a command when system will start
 CMD ["/bin/bash"]
