@@ -199,6 +199,7 @@ FROM common AS release
 # Copy executable files
 COPY --from=build /usr/local /usr/local
 COPY --from=build /root/.bashrc /root/.bashrc
+COPY ./conf/httpd.conf /usr/local/httpd/conf/
 
 # Install related files
 RUN set -x; \
