@@ -215,3 +215,11 @@ RUN set -x; \
     \
     && : "不要なファイルの削除" \
     && yum clean all
+
+# 待ち受けるポートの設定
+EXPOSE 80
+
+STOPSIGNAL SIGTERM
+
+# サーバの起動
+CMD ["/usr/local/httpd/bin/apachectl", "-D", "FOREGROUND"]
