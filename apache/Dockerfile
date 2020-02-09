@@ -174,6 +174,7 @@ RUN set -x; \
     && cd "${BUILD_DIR}/${APACHE_PAKAGE}" \
     && "${SRC_DIR}/${APACHE_PAKAGE}/configure" \
         --enable-mods-shared=all \
+        --enable-mpms-shared=all \
         --enable-shared=ssl \
         --enable-ssl \
         --prefix="${INSTALL_DIR}/${APACHE}" \
