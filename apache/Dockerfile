@@ -202,6 +202,9 @@ COPY --from=build /usr/local /usr/local
 COPY --from=build /root/.bashrc /root/.bashrc
 COPY ./conf/httpd.conf /usr/local/httpd/conf/
 
+# Install openssl
+ENV OPENSSL="openssl"
+
 # Install related files
 RUN set -x; \
       . ~/.bashrc \
@@ -214,6 +217,11 @@ RUN set -x; \
     && yum install -y \
         perl \
         zlib-devel \
+    \
+    && : "設定の追加" \
+    && : "openssl" \
+    && echo "${INSTALL_DIR}/${OPENSSL}/lib" > /etc/ld.so.conf.d/lib64.conf \
+    && ldconfig \
     \
     && : "不要なファイルの削除" \
     && yum clean all
