@@ -13,7 +13,7 @@ ENV APR="apr"
 ENV APR_VERSION="1.6.5"
 ENV APR_PAKAGE="${APR}-${APR_VERSION}"
 ENV APR_PAKAGE_FILE="${APR_PAKAGE}.tar.gz"
-ENV APR_URL="http://ftp.jaist.ac.jp/pub/apache//${APR}/${APR_PAKAGE_FILE}"
+ENV APR_URL="http://ftp.jaist.ac.jp/pub/apache/${APR}/${APR_PAKAGE_FILE}"
 ENV APR_SHA256="70dcf9102066a2ff2ffc47e93c289c8e54c95d8dda23b503f9e61bb0cbd2d105 *${APR_PAKAGE_FILE}"
 
 RUN set -x; \
