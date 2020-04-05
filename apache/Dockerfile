@@ -112,11 +112,11 @@ RUN set -x; \
 
 # Install openssl
 ENV OPENSSL="openssl"
-ENV OPENSSL_VERSION="1.1.1d"
+ENV OPENSSL_VERSION="1.1.1f"
 ENV OPENSSL_PAKAGE="${OPENSSL}-${OPENSSL_VERSION}"
 ENV OPENSSL_PAKAGE_FILE="${OPENSSL_PAKAGE}.tar.gz"
 ENV OPENSSL_URL="https://www.openssl.org/source/${OPENSSL_PAKAGE_FILE}"
-ENV OPENSSL_SHA256="1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2 *${OPENSSL_PAKAGE_FILE}"
+ENV OPENSSL_SHA256="186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35 *${OPENSSL_PAKAGE_FILE}"
 
 RUN set -x; \
       . ~/.bashrc \
@@ -150,12 +150,12 @@ RUN set -x; \
         "${BUILD_DIR}/${OPENSSL_PAKAGE}"
 
 # Install Apache
-ENV APACHE="httpd"
-ENV APACHE_VERSION="2.4.41"
+ARG APACHE
+ARG APACHE_VERSION
 ENV APACHE_PAKAGE="${APACHE}-${APACHE_VERSION}"
 ENV APACHE_PAKAGE_FILE="${APACHE_PAKAGE}.tar.gz"
-ENV APACHE_URL="http://ftp.jaist.ac.jp/pub/apache//${APACHE}/${APACHE_PAKAGE_FILE}"
-ENV APACHE_SHA256="3c0f9663240beb0f008acf3b4501c4f339d7467ee345a36c86c46b4d6f3a5461 *${APACHE_PAKAGE_FILE}"
+ENV APACHE_URL="http://ftp.jaist.ac.jp/pub/apache/${APACHE}/${APACHE_PAKAGE_FILE}"
+ARG APACHE_SHA256
 
 RUN set -x; \
       . ~/.bashrc \
@@ -169,7 +169,7 @@ RUN set -x; \
     && : "apacheのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${APACHE_URL}" \
-    && echo "${APACHE_SHA256}" | sha256sum -c - \
+    && echo "${APACHE_SHA256} *${APACHE_PAKAGE_FILE}" | sha256sum -c - \
     && tar xvf "${APACHE_PAKAGE_FILE}" \
     && cd "${BUILD_DIR}/${APACHE_PAKAGE}" \
     && "${SRC_DIR}/${APACHE_PAKAGE}/configure" \
