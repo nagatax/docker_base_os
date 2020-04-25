@@ -1,8 +1,12 @@
 #!/bin/sh
 
-# Enable BuildKit
-export DOCKER_BUILDKIT=1
+##################################################
+# Dockerイメージを作成する
+##################################################
+
+# Load some environmental values
+source ./redis/hooks/env.sh
 
 # Building a docker image
 echo "Building a docker image"
-docker image build -t ${IMAGE_NAME} .
+docker image build . --build-arg REDIS=${PACKAGE} --build-arg REDIS_VERSION=${PACKAGE_VERSION} -t ${D_IMAGE} -f ./redis/Dockerfile
