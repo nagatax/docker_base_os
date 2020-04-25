@@ -2,9 +2,6 @@
 
 ##################################################
 # Dockerイメージを作成する
-#
-# Precondition
-#  Need to set DH_USER and DH_PASSWD.
 ##################################################
 
 # Load some environmental values
