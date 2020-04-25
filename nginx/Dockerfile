@@ -40,8 +40,8 @@ RUN set -x; \
 ##################################################
 # nginxのインストール
 ##################################################
-ENV NGINX="nginx"
-ENV NGINX_VERSION="1.17.6"
+ARG NGINX
+ARG NGINX_VERSION
 ENV NGINX_PAKAGE="${NGINX}-${NGINX_VERSION}"
 ENV NGINX_PAKAGE_FILE="${NGINX_PAKAGE}.tar.gz"
 ENV NGINX_URL="https://nginx.org/download/${NGINX_PAKAGE_FILE}"

@@ -85,7 +85,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            DOCKER_BUILDKIT=1 docker image build . -t ${DOCKER_USER}/nginx:latest -f nginx/Dockerfile
+            source ./nginx/hooks/build
       - run:
           name: Update system
           command: |
@@ -98,17 +98,14 @@ jobs:
             gem install bundler
             bundle update --bundler
             bundle install --path vendor/bundler
-      - run:
-          name: Testing Docker
-          command: |
-            source run_spec.sh
+      # - run:
+      #     name: Testing Docker
+      #     command: |
+      #       source ./nginx/run_spec.sh
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            echo $DOCKER_PASS | base64 -d | \
-            docker login -u ${DOCKER_USER} --password-stdin
-            docker image push ${DOCKER_USER}/nginx:latest
-            docker logout
+            source ./nginx/hooks/deploy
 
   build-php:
     working_directory: ~/php
