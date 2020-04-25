@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            DOCKER_BUILDKIT=1 docker image build . -t ${DOCKER_USER}/apache:latest -f apache/Dockerfile
+            source ./apache/hooks/build
       - run:
           name: Update system
           command: |
@@ -64,17 +64,48 @@ jobs:
             gem install bundler
             bundle update --bundler
             bundle install --path vendor/bundler
-      - run:
-          name: Testing Docker
-          command: |
-            source run_spec.sh
+      # - run:
+      #     name: Testing Docker
+      #     command: |
+      #       source ./apache/run_spec.sh
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            echo $DOCKER_PASS | base64 -d | \
-            docker login -u ${DOCKER_USER} --password-stdin
-            docker image push ${DOCKER_USER}/apache:latest
-            docker logout
+            source ./apache/hooks/deploy
+
+  build-nginx:
+    working_directory: ~/nginx
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+          version: 18.09.3
+      - run:
+          name: Building Docker
+          command: |
+            source ./nginx/hooks/build
+      - run:
+          name: Update system
+          command: |
+            apk update
+            apk upgrade
+      - run:
+          name: Set up serverspec environment
+          command: |
+            apk add ruby ruby-rdoc ruby-etc
+            gem install bundler
+            bundle update --bundler
+            bundle install --path vendor/bundler
+      # - run:
+      #     name: Testing Docker
+      #     command: |
+      #       source ./nginx/run_spec.sh
+      - deploy:
+          name: Deploy to Docker Hub
+          command: |
+            source ./nginx/hooks/deploy
 
   build-php:
     working_directory: ~/php
@@ -163,6 +194,11 @@ workflows:
           filters:
             branches:
               only: apache/master
+      - build-nginx:
+          context: dockerhub
+          filters:
+            branches:
+              only: nginx/master
       - build-php:
           context: dockerhub
           filters:

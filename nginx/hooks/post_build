@@ -1,7 +1,0 @@
-#!/bin/bash
-set -eu
-
-# テストスイートの実行
-cd tests
-chmod +x run_tests.sh
-./run_tests.sh
