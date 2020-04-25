@@ -51,8 +51,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./apache/hooks/env.sh
-            docker image build . --build-arg APACHE=${PACKAGE} --build-arg APACHE_VERSION=${PACKAGE_VERSION} --build-arg APACHE_SHA256=${PACKAGE_SHA256} -t ${D_IMAGE} -f ./apache/Dockerfile
+            source ./apache/hooks/build
       - run:
           name: Update system
           command: |
@@ -72,10 +71,7 @@ jobs:
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            echo $DOCKER_PASS | base64 -d | \
-            docker login -u ${DOCKER_USER} --password-stdin
-            docker image push ${DOCKER_USER}/apache:latest
-            docker logout
+            source ./apache/hooks/deploy
 
   build-php:
     working_directory: ~/php

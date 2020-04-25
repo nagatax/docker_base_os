@@ -8,8 +8,8 @@
 ##################################################
 
 # Load some environmental values
-source "$(dirname $0)/env.sh"
+source ./apache/hooks/env.sh
 
 # Building a docker image
 echo "Building a docker image"
-docker image build --build-arg APACHE=${PACKAGE} --build-arg APACHE_VERSION=${PACKAGE_VERSION} --build-arg APACHE_SHA256=${PACKAGE_SHA256} -t ${D_IMAGE} .
+docker image build . --build-arg APACHE=${PACKAGE} --build-arg APACHE_VERSION=${PACKAGE_VERSION} --build-arg APACHE_SHA256=${PACKAGE_SHA256} -t ${D_IMAGE} -f ./apache/Dockerfile
