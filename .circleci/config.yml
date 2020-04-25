@@ -73,6 +73,40 @@ jobs:
           command: |
             source ./apache/hooks/deploy
 
+  build-nginx:
+    working_directory: ~/nginx
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+          version: 18.09.3
+      - run:
+          name: Building Docker
+          command: |
+            source ./nginx/hooks/build
+      - run:
+          name: Update system
+          command: |
+            apk update
+            apk upgrade
+      - run:
+          name: Set up serverspec environment
+          command: |
+            apk add ruby ruby-rdoc ruby-etc
+            gem install bundler
+            bundle update --bundler
+            bundle install --path vendor/bundler
+      # - run:
+      #     name: Testing Docker
+      #     command: |
+      #       source ./nginx/run_spec.sh
+      - deploy:
+          name: Deploy to Docker Hub
+          command: |
+            source ./nginx/hooks/deploy
+
   build-php:
     working_directory: ~/php
     docker:
@@ -160,6 +194,11 @@ workflows:
           filters:
             branches:
               only: apache/master
+      - build-nginx:
+          context: dockerhub
+          filters:
+            branches:
+              only: nginx/master
       - build-php:
           context: dockerhub
           filters:

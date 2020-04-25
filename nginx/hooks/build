@@ -1,22 +1,12 @@
-#!/bin/bash
-set -eu
+#!/bin/sh
 
-# ビルドイメージの作成
-echo "image for building"
-docker image build -t ${IMAGE_NAME} . -f Dockerfile.build
+##################################################
+# Dockerイメージを作成する
+##################################################
 
-# デプロイファイルをローカルにコピー
-mkdir -p deploy_files
-docker container create --name extract ${IMAGE_NAME}
-docker container cp extract:/usr/local/pcre deploy_files
-docker container cp extract:/usr/local/nginx deploy_files
-docker container cp extract:/root/.bashrc deploy_files
-docker container rm extract
-docker image rm ${IMAGE_NAME}
+# Load some environmental values
+source ./nginx/hooks/env.sh
 
-# リリースイメージの作成
-echo "Building image for release"
-docker image build --no-cache -t ${IMAGE_NAME} .
-
-# ローカルのデプロイファイルを削除
-rm -rf deploy_files
+# Building a docker image
+echo "Building a docker image"
+docker image build . --build-arg NGINX=${PACKAGE} --build-arg NGINX_VERSION=${PACKAGE_VERSION} -t ${D_IMAGE} -f ./nginx/Dockerfile
