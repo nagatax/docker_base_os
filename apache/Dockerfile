@@ -201,7 +201,7 @@ FROM common AS release
 # Copy executable files
 COPY --from=build /usr/local /usr/local
 COPY --from=build /root/.bashrc /root/.bashrc
-COPY `dirname ${0}`"/conf/httpd.conf" /usr/local/httpd/conf/
+COPY ./apache/conf/httpd.conf /usr/local/httpd/conf/
 
 # Install openssl
 ENV OPENSSL="openssl"
