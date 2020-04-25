@@ -8,8 +8,8 @@ FROM common AS  build
 ##################################################
 # redisのインストール
 ##################################################
-ENV REDIS="redis"
-ENV REDIS_VERSION="5.0.5"
+ARG REDIS
+ARG REDIS_VERSION
 ENV REDIS_PAKAGE="${REDIS}-${REDIS_VERSION}"
 ENV REDIS_PAKAGE_FILE="${REDIS_PAKAGE}.tar.gz"
 ENV REDIS_URL="http://download.redis.io/releases/${REDIS_PAKAGE_FILE}"
