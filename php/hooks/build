@@ -1,8 +1,12 @@
 #!/bin/sh
 
-# Enable BuildKit
-export DOCKER_BUILDKIT=1
+##################################################
+# Dockerイメージを作成する
+##################################################
+
+# Load some environmental values
+source ./php/hooks/env.sh
 
 # Building a docker image
 echo "Building a docker image"
-docker image build -t ${IMAGE_NAME} .
+docker image build . --build-arg PHP=${PACKAGE} --build-arg PHP_VERSION=${PACKAGE_VERSION} --build-arg PHP_SHA256=${PACKAGE_SHA256} -t ${D_IMAGE} -f ./php/Dockerfile

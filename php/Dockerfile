@@ -24,12 +24,12 @@ RUN set -x; \
 ##################################################
 
 # Install PHP
-ENV PHP="php"
-ENV PHP_VERSION="7.4.3"
+ARG PHP
+ARG PHP_VERSION
 ENV PHP_PAKAGE="${PHP}-${PHP_VERSION}"
 ENV PHP_PAKAGE_FILE="${PHP}-${PHP_VERSION}.tar.gz"
 ENV PHP_URL="https://www.php.net/distributions/${PHP_PAKAGE_FILE}"
-ENV PHP_SHA256="58e421a1dba10da8542a014535cac77a78f0271afb901cc2bd363b881895a9ed *${PHP_PAKAGE_FILE}"
+ARG PHP_SHA256
 
 RUN set -x; \
       . ~/.bashrc \
@@ -61,7 +61,7 @@ RUN set -x; \
     && : "phpのインストール" \
     && cd "${SRC_DIR}" \
     && wget "${PHP_URL}" \
-    && echo "${PHP_SHA256}" | sha256sum -c - \
+    && echo "${PHP_SHA256} *${PHP_PAKAGE_FILE}" | sha256sum -c - \
     && tar xvf "${PHP_PAKAGE_FILE}" \
     && cd "${BUILD_DIR}/${PHP_PAKAGE}" \
     && "${SRC_DIR}/${PHP_PAKAGE}/configure" \
