@@ -119,7 +119,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            DOCKER_BUILDKIT=1 docker image build . -t ${DOCKER_USER}/php:latest -f php/Dockerfile
+            source ./php/hooks/build
       - run:
           name: Update system
           command: |
@@ -132,17 +132,14 @@ jobs:
             gem install bundler
             bundle update --bundler
             bundle install --path vendor/bundler
-      - run:
-          name: Testing Docker
-          command: |
-            source run_spec.sh
+      # - run:
+      #     name: Testing Docker
+      #     command: |
+      #       source ./php/run_spec.sh
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            echo $DOCKER_PASS | base64 -d | \
-            docker login -u ${DOCKER_USER} --password-stdin
-            docker image push ${DOCKER_USER}/php:latest
-            docker logout
+            source ./php/hooks/deploy
 
   build-redis:
     working_directory: ~/redis
