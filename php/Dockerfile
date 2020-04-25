@@ -1,4 +1,4 @@
-FROM nagatax/apache:latest AS common
+FROM nagatax/httpd:latest AS common
 
 ##################################################
 # Create a build image
