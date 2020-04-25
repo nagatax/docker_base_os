@@ -65,10 +65,10 @@ jobs:
             gem install bundler
             bundle update --bundler
             bundle install --path vendor/bundler
-      - run:
-          name: Testing Docker
-          command: |
-            source run_spec.sh
+      # - run:
+      #     name: Testing Docker
+      #     command: |
+      #       source ./apache/run_spec.sh
       - deploy:
           name: Deploy to Docker Hub
           command: |
