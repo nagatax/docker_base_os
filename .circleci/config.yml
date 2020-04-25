@@ -51,7 +51,8 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            DOCKER_BUILDKIT=1 docker image build . -t ${DOCKER_USER}/apache:latest -f apache/Dockerfile
+            source ./apache/hooks/env.sh
+            docker image build . --build-arg APACHE=${PACKAGE} --build-arg APACHE_VERSION=${PACKAGE_VERSION} --build-arg APACHE_SHA256=${PACKAGE_SHA256} -t ${D_IMAGE} -f ./apache/Dockerfile
       - run:
           name: Update system
           command: |
