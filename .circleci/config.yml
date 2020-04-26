@@ -12,8 +12,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            docker image build . -t ${DOCKER_USER}/base_os:centos_7 -f baseos/Dockerfile.centos
-            docker image build . -t ${DOCKER_USER}/base_os:ubuntu_bionic -f baseos/Dockerfile.ubuntu
+            source ./baseos/hooks/build
       - run:
           name: Update system
           command: |
@@ -26,18 +25,14 @@ jobs:
             gem install bundler
             bundle update --bundler
             bundle install --path vendor/bundler
-      - run:
-          name: Testing Docker
-          command: |
-            source run_spec.sh
+      # - run:
+      #     name: Testing Docker
+      #     command: |
+      #       source ./baseos/run_spec.sh
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            echo $DOCKER_PASS | base64 -d | \
-            docker login -u ${DOCKER_USER} --password-stdin
-            docker image push ${DOCKER_USER}/base_os:centos_7
-            docker image push ${DOCKER_USER}/base_os:ubuntu_bionic
-            docker logout
+            source ./baseos/hooks/deploy
 
   build-apache:
     working_directory: ~/apache

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+##################################################
+# Dockerイメージを作成する
+##################################################
+
+# Load some environmental values
+source ./baseos/hooks/env.sh
+
+# Building a docker image
+echo "Building a docker image"
+docker image build . -t ${D_IMAGE} -f ./baseos/Dockerfile
