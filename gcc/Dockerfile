@@ -97,6 +97,9 @@ RUN set -x; \
         gcc-c++ \
         perl \
         wget \
+    && : "gccの実行時に必要なパッケージのインストール" \
+    && dnf install -y \
+        glibc-devel \
     && : "dnfのキャッシュをクリア" \
     && rm -rf /var/cache/dnf/* \
     && dnf clean all
