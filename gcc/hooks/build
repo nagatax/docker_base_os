@@ -1,18 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
 ##################################################
 # Dockerイメージを作成する
-#
-# Precondition
-#  Need to set DH_USER and DH_PASSWD.
 ##################################################
 
-# Set shell option
-set -eu
-
 # Load some environmental values
-source "$(dirname $0)/env.sh"
+source ./gcc/hooks/env.sh
 
-# Create building image
-echo "Building image"
-docker image build --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION} -t ${D_IMAGE} .
+# Building a docker image
+echo "Building a docker image"
+docker image build . --build-arg GCC=${PACKAGE} --build-arg GCC_VERSION=${PACKAGE_VERSION} -t ${D_IMAGE} -f ./gcc/Dockerfile

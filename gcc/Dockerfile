@@ -1,4 +1,4 @@
-FROM nagatax/base_os:centos_7
+FROM nagatax/baseos:centos8
 
 ##################################################
 # gccのインストール
