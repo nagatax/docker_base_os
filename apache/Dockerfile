@@ -19,7 +19,7 @@ ENV APR_SHA256="70dcf9102066a2ff2ffc47e93c289c8e54c95d8dda23b503f9e61bb0cbd2d105
 RUN set -x; \
       . ~/.bashrc \
        : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         file \
         make \
         wget \
@@ -54,7 +54,7 @@ ENV APR_UTIL_SHA256="b65e40713da57d004123b6319828be7f1273fbc6490e145874ee1177e11
 RUN set -x; \
       . ~/.bashrc \
        : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         expat-devel \
         make \
         wget \
@@ -88,7 +88,7 @@ ENV PCRE_SIG_URL="https://ftp.pcre.org/pub/${PCRE}/${PCRE_PAKAGE_FILE}.sig"
 RUN set -x; \
       . ~/.bashrc \
        : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         make \
         wget \
     && : "必要なフォルダの作成" \
@@ -121,7 +121,7 @@ ENV OPENSSL_SHA256="186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da
 RUN set -x; \
       . ~/.bashrc \
        : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         make \
         perl \
         zlib-devel \
@@ -160,7 +160,7 @@ ARG APACHE_SHA256
 RUN set -x; \
       . ~/.bashrc \
        : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         make \
         wget \
     && : "必要なフォルダの作成" \
@@ -212,10 +212,10 @@ RUN set -x; \
     \
     && : "関連パッケージのインストール" \
     && : "apr-util" \
-    && yum install -y \
+    && dnf install -y \
         expat-devel \
     && : "openssl" \
-    && yum install -y \
+    && dnf install -y \
         perl \
         zlib-devel \
     \
@@ -225,7 +225,7 @@ RUN set -x; \
     && ldconfig \
     \
     && : "不要なファイルの削除" \
-    && yum clean all
+    && dnf clean all
 
 # 待ち受けるポートの設定
 EXPOSE 80
