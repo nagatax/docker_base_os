@@ -1,4 +1,4 @@
-FROM nagatax/base_os:centos_7
+FROM nagatax/baseos:centos8
 
 ##################################################
 # gccのインストール
@@ -30,9 +30,9 @@ LABEL title="${GCC}" \
 
 RUN set -x; \
        : "システムを最新の状態に更新" \
-    && yum update -y \
+    && dnf update -y \
     && : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf --enablerepo=PowerTools install -y \
         autoconf \
         autogen \
         automake \
@@ -92,14 +92,14 @@ RUN set -x; \
         "${SRC_DIR}/${GCC_PAKAGE_FILE}" \
         "${BUILD_DIR}/${GCC_PAKAGE}" \
     && : "不要なパッケージの削除" \
-    && yum remove -y \
+    && dnf remove -y \
         gcc \
         gcc-c++ \
         perl \
         wget \
-    && : "yumのキャッシュをクリア" \
-    && rm -rf /var/cache/yum/* \
-    && yum clean all
+    && : "dnfのキャッシュをクリア" \
+    && rm -rf /var/cache/dnf/* \
+    && dnf clean all
 
 # 起動時のコマンドを設定
 CMD [ "/bin/bash" ]
