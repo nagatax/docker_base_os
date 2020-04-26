@@ -18,7 +18,7 @@ RUN set -x; \
   . ~/.bashrc \
   \
   && : "関連パッケージのインストール" \
-  && yum install -y \
+  && dnf install -y \
   make \
   tcl \
   tcl-devel \
@@ -63,7 +63,7 @@ RUN set -x; \
   && groupadd -r redis && useradd -g redis -s /sbin/nologin -r redis \
   \
   && : "関連パッケージのインストール" \
-  && yum install -y \
+  && dnf install -y \
   tcl \
   tcl-devel \
   which \
@@ -74,7 +74,7 @@ RUN set -x; \
   && chown redis:redis /data \
   \
   && : "不要なファイルの削除" \
-  && yum clean all
+  && dnf clean all
 
 # ボリュームと作業ディレクトリの設定
 VOLUME /data
