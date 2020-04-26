@@ -218,11 +218,11 @@ workflows:
           filters:
             branches:
               only: apache/master
-      - build-gcc:
-          context: dockerhub
-          filters:
-            branches:
-              only: gcc/master
+      # - build-gcc:
+      #     context: dockerhub
+      #     filters:
+      #       branches:
+      #         only: gcc/master
       - build-nginx:
           context: dockerhub
           filters:
