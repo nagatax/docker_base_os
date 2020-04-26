@@ -30,7 +30,7 @@ LABEL title="${GCC}" \
 
 RUN set -x; \
        : "システムを最新の状態に更新" \
-    && dnf --enablerepo=PowerTools update -y \
+    && dnf update -y \
     && : "関連パッケージのインストール" \
     && dnf --enablerepo=PowerTools install -y \
         autoconf \
