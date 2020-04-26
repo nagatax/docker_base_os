@@ -13,11 +13,11 @@ RUN set -x; \
       . ~/.bashrc \
     \
     && : "必要なフォルダの作成" \
-    && yum install -y \
+    && dnf install -y \
         epel-release \
-        http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
-    && yum --enablerepo=remi install -y oniguruma-devel \
-    && yum clean all
+        http://rpms.famillecollet.com/enterprise/remi-release-8.rpm \
+    && dnf --enablerepo=remi install -y oniguruma-devel \
+    && dnf clean all
 
 ##################################################
 # Install the PHP
@@ -35,7 +35,7 @@ RUN set -x; \
       . ~/.bashrc \
     \
     && : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y --enablerepo=PowerTools \
         autoconf \
         automake \
         bison \
@@ -89,7 +89,7 @@ RUN set -x; \
     && rm -rf "${SRC_DIR}/${PHP_PAKAGE}" \
         "${SRC_DIR}/${PHP_PAKAGE_FILE}" \
         "${BUILD_DIR}/${PHP_PAKAGE}" \
-    && yum clean all
+    && dnf clean all
 
 # Update PEAR and PECL
 RUN set -x; \
@@ -102,11 +102,13 @@ RUN set -x; \
 RUN set -x; \
       . ~/.bashrc \
     \
-    && yum install -y \
+    && dnf install -y --enablerepo=PowerTools \
         ImageMagick-devel \
         libmemcached-devel \
         libyaml-devel \
     \
+    && sed -ie 's/;openssl.cafile=/openssl.cafile=\/etc\/ssl\/certs\/ca-bundle.crt/g' /usr/local/php/lib/php.ini \
+    && pecl channel-update pecl.php.net \
     && pecl install \
         imagick \
         memcached \
@@ -122,7 +124,7 @@ RUN set -x; \
       . ~/.bashrc \
     \
     && : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         git \
     \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -145,12 +147,12 @@ RUN set -x; \
     \
     && : "関連パッケージのインストール" \
     && : "oniguruma" \
-    && yum install -y \
+    && dnf install -y \
         epel-release \
-        http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
-    && yum --enablerepo=remi install -y oniguruma-devel \
+        http://rpms.famillecollet.com/enterprise/remi-release-8.rpm \
+    && dnf --enablerepo=remi install -y oniguruma-devel \
     && : "PHP" \
-    && yum install -y \
+    && dnf install -y --enablerepo=PowerTools \
         autoconf \
         automake \
         bison \
@@ -168,10 +170,10 @@ RUN set -x; \
         zip \
         unzip \
     && : "Xdebug" \
-    && yum install -y \
+    && dnf install -y --enablerepo=PowerTools \
         ImageMagick-devel \
         libmemcached-devel \
         libyaml-devel \
     \
     && : "不要なファイルの削除" \
-    && yum clean all
+    && dnf clean all
