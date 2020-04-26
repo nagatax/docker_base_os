@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:8
 
 # IMAGE INFORMATION
 LABEL maintainer="nagatax<4foview@gmail.com>" \
@@ -16,7 +16,7 @@ USER root
 
 RUN set -x; \
     : "Set a GPG key" \
-    && rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 \
+    && rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial \
     && yum update -y \
     && yum clean all
 

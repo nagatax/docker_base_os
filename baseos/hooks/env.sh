@@ -20,7 +20,7 @@ export DOCKER_BUILDKIT=1
 
 # Installing version
 export PACKAGE=baseos
-export PACKAGE_VERSION=centos7
-export PACKAGE_LATEST=centos7
+export PACKAGE_VERSION=centos8
+export PACKAGE_LATEST=centos8
 export PACKAGE_SHA256=""
 export D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
