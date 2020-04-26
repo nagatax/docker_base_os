@@ -122,6 +122,8 @@ RUN set -x; \
       . ~/.bashrc \
        : "関連パッケージのインストール" \
     && dnf install -y \
+        lksctp-tools \
+        lksctp-tools-devel \
         make \
         perl \
         zlib-devel \
@@ -137,6 +139,8 @@ RUN set -x; \
     && cd "${BUILD_DIR}/${OPENSSL_PAKAGE}" \
     && "${SRC_DIR}/${OPENSSL_PAKAGE}/config" \
         --prefix="${INSTALL_DIR}/${OPENSSL}" \
+        enable-md2 \
+        sctp \
         shared \
         zlib \
     && make -j`nproc` \
