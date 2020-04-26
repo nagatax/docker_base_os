@@ -16,7 +16,7 @@ ENV PCRE_SIG_URL="https://ftp.pcre.org/pub/${PCRE}/${PCRE_PAKAGE_FILE}.sig"
 RUN set -x; \
       . ~/.bashrc \
        : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         make \
         wget \
     && : "必要なフォルダの作成" \
@@ -50,7 +50,7 @@ RUN set -x; \
     . ~/.bashrc \
     \
     && : "関連パッケージのインストール" \
-    && yum install -y \
+    && dnf install -y \
         make \
         wget \
     \
