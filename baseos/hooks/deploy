@@ -1,0 +1,33 @@
+#!/bin/bash
+
+##################################################
+# Dockerイメージを登録する
+#
+# Environment Variables
+#  PACKAGE: package name
+#  PACKAGE_VERSION: package version
+#  PACKAGE_LATEST: latest version of package
+#  D_IMAGE: image name of Docker
+#  DH_IMAGE: image name of Docker Hub
+#  DH_LATEST: latest image name of Docker Hub
+#
+# Precondition
+#  Need to set DOCKER_USER and DOCKER_PASS.
+##################################################
+
+# Set shell option
+set -eu
+
+# Load some environmental values
+source ./baseos/hooks/env.sh
+
+# Register in Docker Hub
+source ./baseos/../lib/dockerhub.sh
+pushImage ${DOCKER_USER} ${DOCKER_PASS} ${D_IMAGE} ${PACKAGE} ${PACKAGE_VERSION} ${PACKAGE_LATEST}
+
+# Register tag in Git Hub
+# echo "Pushing git tag"
+# git tag -d "${PACKAGE}-v${PACKAGE_VERSION}"
+# git push origin :"${PACKAGE}-v${PACKAGE_VERSION}"
+# git tag -a "${PACKAGE}-v${PACKAGE_VERSION}" -m "${PACKAGE} version ${PACKAGE_VERSION}"
+# git push origin "${PACKAGE}-v${PACKAGE_VERSION}"
