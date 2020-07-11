@@ -111,47 +111,47 @@ RUN set -x; \
         "${BUILD_DIR}/${PCRE_PAKAGE}"
 
 # Install openssl
-ENV OPENSSL="openssl"
-ENV OPENSSL_VERSION="1.1.1f"
-ENV OPENSSL_PAKAGE="${OPENSSL}-${OPENSSL_VERSION}"
-ENV OPENSSL_PAKAGE_FILE="${OPENSSL_PAKAGE}.tar.gz"
-ENV OPENSSL_URL="https://www.openssl.org/source/${OPENSSL_PAKAGE_FILE}"
-ENV OPENSSL_SHA256="186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35 *${OPENSSL_PAKAGE_FILE}"
+# ENV OPENSSL="openssl"
+# ENV OPENSSL_VERSION="1.1.1g"
+# ENV OPENSSL_PAKAGE="${OPENSSL}-${OPENSSL_VERSION}"
+# ENV OPENSSL_PAKAGE_FILE="${OPENSSL_PAKAGE}.tar.gz"
+# ENV OPENSSL_URL="https://www.openssl.org/source/${OPENSSL_PAKAGE_FILE}"
+# ENV OPENSSL_SHA256="ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46 *${OPENSSL_PAKAGE_FILE}"
 
-RUN set -x; \
-      . ~/.bashrc \
-       : "関連パッケージのインストール" \
-    && dnf install -y \
-        lksctp-tools \
-        lksctp-tools-devel \
-        make \
-        perl \
-        zlib-devel \
-        wget \
-    && : "必要なフォルダの作成" \
-    && mkdir -p "${BUILD_DIR}/${OPENSSL_PAKAGE}" \
-    && mkdir -p "${INSTALL_DIR}/${OPENSSL}" \
-    && : "opensslのインストール" \
-    && cd "${SRC_DIR}" \
-    && wget "${OPENSSL_URL}" \
-    && echo "${OPENSSL_SHA256}" | sha256sum -c - \
-    && tar xvf "${OPENSSL_PAKAGE_FILE}" \
-    && cd "${BUILD_DIR}/${OPENSSL_PAKAGE}" \
-    && "${SRC_DIR}/${OPENSSL_PAKAGE}/config" \
-        --prefix="${INSTALL_DIR}/${OPENSSL}" \
-        enable-md2 \
-        sctp \
-        shared \
-        zlib \
-    && make -j`nproc` \
-    && make install \
-    && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${OPENSSL}/bin" >> /root/.bashrc \
-    && echo "${INSTALL_DIR}/${OPENSSL}/lib" > /etc/ld.so.conf.d/lib64.conf \
-    && ldconfig \
-    && : "不要なファイルの削除" \
-    && rm -rf "${SRC_DIR}/${OPENSSL_PAKAGE}" \
-        "${SRC_DIR}/${OPENSSL_PAKAGE_FILE}" \
-        "${BUILD_DIR}/${OPENSSL_PAKAGE}"
+# RUN set -x; \
+#       . ~/.bashrc \
+#        : "関連パッケージのインストール" \
+#     && dnf install -y \
+#         lksctp-tools \
+#         lksctp-tools-devel \
+#         make \
+#         perl \
+#         zlib-devel \
+#         wget \
+#     && : "必要なフォルダの作成" \
+#     && mkdir -p "${BUILD_DIR}/${OPENSSL_PAKAGE}" \
+#     && mkdir -p "${INSTALL_DIR}/${OPENSSL}" \
+#     && : "opensslのインストール" \
+#     && cd "${SRC_DIR}" \
+#     && wget "${OPENSSL_URL}" \
+#     && echo "${OPENSSL_SHA256}" | sha256sum -c - \
+#     && tar xvf "${OPENSSL_PAKAGE_FILE}" \
+#     && cd "${BUILD_DIR}/${OPENSSL_PAKAGE}" \
+#     && "${SRC_DIR}/${OPENSSL_PAKAGE}/config" \
+#         --prefix="${INSTALL_DIR}/${OPENSSL}" \
+#         enable-md2 \
+#         sctp \
+#         shared \
+#         zlib \
+#     && make -j`nproc` \
+#     && make install \
+#     && echo 'export PATH=${PATH}'":${INSTALL_DIR}/${OPENSSL}/bin" >> /root/.bashrc \
+#     && echo "${INSTALL_DIR}/${OPENSSL}/lib" > /etc/ld.so.conf.d/lib64.conf \
+#     && ldconfig \
+#     && : "不要なファイルの削除" \
+#     && rm -rf "${SRC_DIR}/${OPENSSL_PAKAGE}" \
+#         "${SRC_DIR}/${OPENSSL_PAKAGE_FILE}" \
+#         "${BUILD_DIR}/${OPENSSL_PAKAGE}"
 
 # Install Apache
 ARG APACHE
@@ -166,6 +166,8 @@ RUN set -x; \
        : "関連パッケージのインストール" \
     && dnf install -y \
         make \
+        openssl \
+        openssl-devel \
         wget \
     && : "必要なフォルダの作成" \
     && mkdir -p "${BUILD_DIR}/${APACHE_PAKAGE}" \
