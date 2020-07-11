@@ -20,7 +20,7 @@ export DOCKER_BUILDKIT=1
 
 # Installing version
 export PACKAGE=gcc
-export PACKAGE_VERSION=9.3.0
-export PACKAGE_LATEST=9.3.0
+export PACKAGE_VERSION=10.1.0
+export PACKAGE_LATEST=10.1.0
 export PACKAGE_SHA256=""
 export D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
