@@ -8,9 +8,17 @@ Dockerのイメージをまとめたものです。
 
 Dockerイメージのベースとなるイメージです。
 
+## apache
+
+Apache httpdをインストールしたイメージです。
+
 ## gcc
 
-GCC (the GNU Compiler Collection)をインストールしたイメージです。
+GCC(the GNU Compiler Collection)をインストールしたイメージです。
+
+## nginx
+
+Nginxをインストールしたイメージです。
 
 ## php
 
