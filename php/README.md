@@ -11,7 +11,6 @@
 CentOSをベースに下記のソフトウェアをインストールしています。
 
 - php
-- apache
 
 ## Supported tags and respective `Dockerfile` links
 

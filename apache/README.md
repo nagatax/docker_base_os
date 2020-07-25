@@ -1,9 +1,9 @@
 # Description of apache image
 
-[![image information](https://dockeri.co/image/nagatax/apache)](https://hub.docker.com/r/nagatax/apache)
+[![image information](https://dockeri.co/image/nagatax/httpd)](https://hub.docker.com/r/nagatax/httpd)
 
-![automated](https://img.shields.io/docker/automated/nagatax/apache.svg)
-![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fapache.svg)
+![automated](https://img.shields.io/docker/automated/nagatax/httpd.svg)
+![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fhttpd.svg)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 ## Overview
@@ -35,7 +35,7 @@
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker image pull nagatax/apache:[TAG]
+docker image pull nagatax/httpd:[TAG]
 ```
 
 ## License

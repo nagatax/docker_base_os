@@ -1,9 +1,9 @@
 # Description of base_os image
 
-[![image information](https://dockeri.co/image/nagatax/base_os)](https://hub.docker.com/r/nagatax/base_os)
+[![image information](https://dockeri.co/image/nagatax/baseos)](https://hub.docker.com/r/nagatax/baseos)
 
-![automated](https://img.shields.io/docker/automated/nagatax/base_os.svg)
-![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fbase_os.svg)
+![automated](https://img.shields.io/docker/automated/nagatax/baseos.svg)
+![Image size](https://img.shields.io/microbadger/image-size/nagatax%2Fbaseos.svg)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 ## Overview
@@ -33,7 +33,7 @@ Dockerイメージの基底イメージです。
 下記のコマンドでダウンロードできます。
 
 ```bash
-docker image pull nagatax/base_os:[TAG]
+docker image pull nagatax/baseos:[TAG]
 ```
 
 ## License
