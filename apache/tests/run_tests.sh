@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-type "inspec" > /dev/null 2>&1
+# type "inspec" > /dev/null 2>&1
 # if [ $? -ne 0 ]; then
 #     # Install inspec
 #     curl "https://omnitruck.chef.io/install.sh" | sh -s -- -P inspec
