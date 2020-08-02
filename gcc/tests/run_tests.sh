@@ -1,15 +1,18 @@
 #!/bin/bash
 set -eu
 
-# Install inspec
-curl "https://omnitruck.chef.io/install.sh" | bash -s -- -P inspec
+type "inspec" > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    # Install inspec
+    curl "https://omnitruck.chef.io/install.sh" | bash -s -- -P inspec
+fi
 
 # run docker container (create & start)
-docker container run -it -d --name sut "${IMAGE_NAME}"
+docker container run -it -d --name sut "${D_IMAGE}"
 
 # execute inspec
-inspec exec . --controls=docker --chef-license=accept-silent
-inspec exec . -t docker://sut --controls=gcc
+inspec exec ./gcc/tests --controls=docker --chef-license=accept-silent
+inspec exec ./gcc/tests -t docker://sut --controls=gcc
 
 # stop docker container
 docker container stop sut

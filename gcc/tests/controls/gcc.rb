@@ -23,6 +23,6 @@ control 'gcc' do
 
   # バージョンの確認
   describe command('. ~/.bashrc && gcc -v') do
-    its(:stderr) { should match /7\.4\.0/   }
+    its(:stderr) { should match /10\.2\.0/   }
   end
 end
