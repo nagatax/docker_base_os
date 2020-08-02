@@ -52,13 +52,17 @@ jobs:
           command: |
             apk update
             apk upgrade
+      # - run:
+      #     name: Set up serverspec environment
+      #     command: |
+      #       apk add ruby ruby-rdoc ruby-etc
+      #       gem install bundler
+      #       bundle update --bundler
+      #       bundle install --path vendor/bundler
       - run:
-          name: Set up serverspec environment
+          name: Testing Docker
           command: |
-            apk add ruby ruby-rdoc ruby-etc
-            gem install bundler
-            bundle update --bundler
-            bundle install --path vendor/bundler
+            source ./apache/hooks/post_build
       # - run:
       #     name: Testing Docker
       #     command: |
