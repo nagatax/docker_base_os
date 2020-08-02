@@ -2,7 +2,7 @@
 set -eu
 
 # # Load some environmental values
-# source ./apache/hooks/env.sh
+source ./apache/hooks/env.sh
 
 # # テストスイートの実行
 # chmod +x ./apache/tests/run_tests.sh
