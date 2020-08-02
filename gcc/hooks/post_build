@@ -1,7 +1,9 @@
 #!/bin/bash
 set -eu
 
+# Load some environmental values
+source ./gcc/hooks/env.sh
+
 # テストスイートの実行
-cd tests
-chmod +x run_tests.sh
-./run_tests.sh
+chmod +x ./gcc/tests/run_tests.sh
+source ./gcc/tests/run_tests.sh
