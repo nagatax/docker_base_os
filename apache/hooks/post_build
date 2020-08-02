@@ -1,9 +1,9 @@
 #!/bin/sh
 set -eu
 
-# Load some environmental values
-source ./apache/hooks/env.sh
+# # Load some environmental values
+# source ./apache/hooks/env.sh
 
-# テストスイートの実行
-chmod +x ./apache/tests/run_tests.sh
-source ./apache/tests/run_tests.sh
+# # テストスイートの実行
+# chmod +x ./apache/tests/run_tests.sh
+# source ./apache/tests/run_tests.sh
