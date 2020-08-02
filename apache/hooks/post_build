@@ -5,5 +5,5 @@ set -eu
 source ./apache/hooks/env.sh
 
 # # テストスイートの実行
-# chmod +x ./apache/tests/run_tests.sh
+chmod +x ./apache/tests/run_tests.sh
 # source ./apache/tests/run_tests.sh
