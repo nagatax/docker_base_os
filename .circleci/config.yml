@@ -86,15 +86,15 @@ jobs:
             apk update
             apk upgrade
       - run:
-        name: Set up inspec environment
-        command: |
-          apk add build-base git libffi-dev libxml2-dev openssh-client ruby ruby-dev ruby-etc ruby-rdoc ruby-webrick
-          gem install bundler
-          bundle install --path vendor/bundler
+          name: Set up inspec environment
+          command: |
+            apk add build-base git libffi-dev libxml2-dev openssh-client ruby ruby-dev ruby-etc ruby-rdoc ruby-webrick
+            gem install bundler
+            bundle install --path vendor/bundler
       - run:
-        name: Testing Docker
-        command: |
-          source ./gcc/hooks/post_build
+          name: Testing Docker
+          command: |
+            source ./gcc/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
@@ -119,15 +119,15 @@ jobs:
             apk update
             apk upgrade
       - run:
-        name: Set up inspec environment
-        command: |
-          apk add build-base git libffi-dev libxml2-dev openssh-client ruby ruby-dev ruby-etc ruby-rdoc ruby-webrick
-          gem install bundler
-          bundle install --path vendor/bundler
+          name: Set up inspec environment
+          command: |
+            apk add build-base git libffi-dev libxml2-dev openssh-client ruby ruby-dev ruby-etc ruby-rdoc ruby-webrick
+            gem install bundler
+            bundle install --path vendor/bundler
       - run:
-        name: Testing Docker
-        command: |
-          source ./nginx/hooks/post_build
+          name: Testing Docker
+          command: |
+            source ./nginx/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
