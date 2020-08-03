@@ -5,8 +5,8 @@ set -eu
 docker container run -it -d --name sut "${D_IMAGE}"
 
 # execute inspec
-inspec exec ./apache/tests --controls=docker --chef-license=accept-silent
-inspec exec ./apache/tests -t docker://sut --controls=apache
+bundle exec inspec exec ./apache/tests --controls=docker --chef-license=accept-silent
+bundle exec inspec exec ./apache/tests -t docker://sut --controls=apache
 
 # stop docker container
 docker container stop sut
