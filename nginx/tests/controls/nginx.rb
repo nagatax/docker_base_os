@@ -20,7 +20,7 @@ control 'nginx' do
 
   # バージョンの確認
   describe command('. ~/.bashrc && nginx -v') do
-    its(:stdout) { should match /1\.18\.0/ }
+    its(:stderr) { should match /1\.18\.0/ }
   end
 
 end
