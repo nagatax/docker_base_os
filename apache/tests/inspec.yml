@@ -1,0 +1,7 @@
+name: apache
+title: apache
+summary: Verify that apache are installed
+version: 1.0.0
+supports:
+  - platform-family: linux
+  - platform-family: unix
