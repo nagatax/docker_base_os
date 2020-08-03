@@ -86,16 +86,15 @@ jobs:
             apk update
             apk upgrade
       - run:
-          name: Set up serverspec environment
-          command: |
-            apk add ruby ruby-rdoc ruby-etc
-            gem install bundler
-            bundle update --bundler
-            bundle install --path vendor/bundler
-      # - run:
-      #     name: Testing Docker
-      #     command: |
-      #       source ./gcc/run_spec.sh
+        name: Set up inspec environment
+        command: |
+          apk add build-base git libffi-dev libxml2-dev openssh-client ruby ruby-dev ruby-etc ruby-rdoc ruby-webrick
+          gem install bundler
+          bundle install --path vendor/bundler
+      - run:
+        name: Testing Docker
+        command: |
+          source ./gcc/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
