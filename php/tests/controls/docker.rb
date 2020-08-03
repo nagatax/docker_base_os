@@ -14,7 +14,7 @@ control 'docker' do
     its('image')   { should eq ENV['D_IMAGE'] }
     its('repo')    { should eq ENV['PACKAGE'] }
     its('tag')     { should eq ENV['PACKAGE_VERSION'] }
-    its('command') { should eq '/bin/bash' }
+    its('command') { should eq '/usr/local/httpd/bin/apachectl -D FOREGROUND' }
   end
 
 end
