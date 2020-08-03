@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+# Load some environmental values
+source ./php/hooks/env.sh
+
+# テストスイートの実行
+chmod +x ./php/tests/run_tests.sh
+source ./php/tests/run_tests.sh
