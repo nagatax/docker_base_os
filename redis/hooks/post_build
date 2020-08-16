@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+# Load some environmental values
+source ./redis/hooks/env.sh
+
+# テストスイートの実行
+chmod +x ./redis/tests/run_tests.sh
+source ./redis/tests/run_tests.sh

@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+# Load some environmental values
+source ./nginx/hooks/env.sh
+
+# テストスイートの実行
+chmod +x ./nginx/tests/run_tests.sh
+source ./nginx/tests/run_tests.sh
