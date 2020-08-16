@@ -20,6 +20,6 @@ control 'apache' do
 
   # バージョンの確認
   describe command('. ~/.bashrc && httpd -v') do
-    its(:stdout) { should match /2\.4\.43/   }
+    its(:stdout) { should match /2\.4\.46/   }
   end
 end
