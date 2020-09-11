@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ##################################################
 # 環境変数を定義する
@@ -20,8 +20,8 @@ export DOCKER_BUILDKIT=1
 
 # Installing version
 export PACKAGE=php
-export PACKAGE_VERSION=7.4.8
-export PACKAGE_LATEST=7.4.8
-export PACKAGE_SHA256="649f6bcdb60dc38d5edd7f3a7b2905d15d88c1d13e40307e8972ede347cea6ba"
+export PACKAGE_VERSION=7.4.9
+export PACKAGE_LATEST=7.4.9
+export PACKAGE_SHA256="c0c657b5769bc463f5f028b1f4fef8814d98ecf3459a402a9e30d41d68b2323e"
 export D_IMAGE=${PACKAGE}:${PACKAGE_VERSION}
-export COMPOSER_SHA="e5325b19b381bfd88ce90a5ddb7823406b2a38cff6bb704b0acc289a09c8128d4a8ce2bbafcd1fcbdc38666422fe2806"
+export COMPOSER_SHA="572cb359b56ad9ae52f9c23d29d4b19a040af10d6635642e646a7caa7b96de717ce683bd797a92ce99e5929cc51e7d5f"
