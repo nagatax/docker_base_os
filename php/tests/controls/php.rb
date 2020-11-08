@@ -20,6 +20,6 @@ control 'php' do
 
   # バージョンの確認
   describe command('. ~/.bashrc && php -v') do
-    its(:stdout) { should match /7\.4\.10/   }
+    its(:stdout) { should match /7\.4\.12/   }
   end
 end
