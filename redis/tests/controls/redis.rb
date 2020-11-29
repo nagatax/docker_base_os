@@ -23,7 +23,7 @@ control 'redis' do
 
   # バージョンの確認
   describe command('. ~/.bashrc && redis-server -v') do
-    its(:stdout) { should match /6\.0\.9/ }
+    its(:stdout) { should match /#{ENV['PACKAGE_VERSION']}/ }
   end
 
   # 動作確認
