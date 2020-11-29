@@ -103,14 +103,14 @@ RUN set -x; \
       . ~/.bashrc \
     \
     && dnf install -y --enablerepo=PowerTools \
-        ImageMagick-devel \
+        # ImageMagick-devel \
         libmemcached-devel \
         libyaml-devel \
     \
     && sed -ie 's/;openssl.cafile=/openssl.cafile=\/etc\/ssl\/certs\/ca-bundle.crt/g' /usr/local/php/lib/php.ini \
     && pecl channel-update pecl.php.net \
     && pecl install \
-        imagick \
+        # imagick \
         memcached \
         phpredis \
         yaml \
@@ -172,7 +172,7 @@ RUN set -x; \
         unzip \
     && : "Xdebug" \
     && dnf install -y --enablerepo=PowerTools \
-        ImageMagick-devel \
+        # ImageMagick-devel \
         libmemcached-devel \
         libyaml-devel \
     \
