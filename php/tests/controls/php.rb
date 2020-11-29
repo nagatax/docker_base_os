@@ -20,6 +20,6 @@ control 'php' do
 
   # バージョンの確認
   describe command('. ~/.bashrc && php -v') do
-    its(:stdout) { should match /8\.0\.0/   }
+    its(:stdout) { should match /#{ENV['PACKAGE_VERSION']}/ }
   end
 end
