@@ -1,9 +1,15 @@
-version: 2
-jobs:
-  build-baseos:
-    working_directory: ~/baseos
+version: 2.1
+
+executors:
+  default:
     docker:
       - image: docker:stable-git
+    working_directory: ~/repo
+
+jobs:
+  build-baseos:
+    executor: default
+    working_directory: ~/baseos
     steps:
       - checkout
       - setup_remote_docker:
@@ -35,9 +41,7 @@ jobs:
             source ./baseos/hooks/deploy
 
   build-apache:
-    working_directory: ~/apache
-    docker:
-      - image: docker:stable-git
+    executor: default
     steps:
       - checkout
       - setup_remote_docker:
@@ -68,9 +72,7 @@ jobs:
             source ./apache/hooks/deploy
 
   build-gcc:
-    working_directory: ~/gcc
-    docker:
-      - image: docker:stable-git
+    executor: default
     steps:
       - checkout
       - setup_remote_docker:
@@ -101,9 +103,7 @@ jobs:
             source ./gcc/hooks/deploy
 
   build-nginx:
-    working_directory: ~/nginx
-    docker:
-      - image: docker:stable-git
+    executor: default
     steps:
       - checkout
       - setup_remote_docker:
@@ -134,9 +134,7 @@ jobs:
             source ./nginx/hooks/deploy
 
   build-php:
-    working_directory: ~/php
-    docker:
-      - image: docker:stable-git
+    executor: default
     steps:
       - checkout
       - setup_remote_docker:
@@ -167,9 +165,7 @@ jobs:
             source ./php/hooks/deploy
 
   build-redis:
-    working_directory: ~/redis
-    docker:
-      - image: docker:stable-git
+    executor: default
     steps:
       - checkout
       - setup_remote_docker:
