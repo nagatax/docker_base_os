@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./repo/hooks/build
+            source ./apache/hooks/build
       - run:
           name: Update system
           command: |
@@ -65,11 +65,11 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./repo/hooks/post_build
+            source ./apache/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./repo/hooks/deploy
+            source ./apache/hooks/deploy
 
   build-gcc:
     executor: default
@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./repo/hooks/build
+            source ./gcc/hooks/build
       - run:
           name: Update system
           command: |
@@ -96,11 +96,11 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./repo/hooks/post_build
+            source ./gcc/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./repo/hooks/deploy
+            source ./gcc/hooks/deploy
 
   build-nginx:
     executor: default
@@ -112,7 +112,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./repo/hooks/build
+            source ./nginx/hooks/build
       - run:
           name: Update system
           command: |
@@ -127,11 +127,11 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./repo/hooks/post_build
+            source ./nginx/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./repo/hooks/deploy
+            source ./nginx/hooks/deploy
 
   build-php:
     executor: default
@@ -143,7 +143,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./repo/hooks/build
+            source ./php/hooks/build
       - run:
           name: Update system
           command: |
@@ -158,11 +158,11 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./repo/hooks/post_build
+            source ./php/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./repo/hooks/deploy
+            source ./php/hooks/deploy
 
   build-redis:
     executor: default
@@ -174,7 +174,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./repo/hooks/build
+            source ./redis/hooks/build
       - run:
           name: Update system
           command: |
@@ -189,11 +189,11 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./repo/hooks/post_build
+            source ./redis/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./repo/hooks/deploy
+            source ./redis/hooks/deploy
 
 workflows:
   version: 2
