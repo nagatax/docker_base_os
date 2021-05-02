@@ -4,6 +4,7 @@ executors:
   default:
     docker:
       - image: docker:stable-git
+    working_directory: ~/repo
 
 jobs:
   build-baseos:
@@ -41,7 +42,6 @@ jobs:
 
   build-apache:
     executor: default
-    working_directory: ~/apache
     steps:
       - checkout
       - setup_remote_docker:
@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./apache/hooks/build
+            source ./repo/hooks/build
       - run:
           name: Update system
           command: |
@@ -65,15 +65,14 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./apache/hooks/post_build
+            source ./repo/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./apache/hooks/deploy
+            source ./repo/hooks/deploy
 
   build-gcc:
     executor: default
-    working_directory: ~/gcc
     steps:
       - checkout
       - setup_remote_docker:
@@ -82,7 +81,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./gcc/hooks/build
+            source ./repo/hooks/build
       - run:
           name: Update system
           command: |
@@ -97,15 +96,14 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./gcc/hooks/post_build
+            source ./repo/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./gcc/hooks/deploy
+            source ./repo/hooks/deploy
 
   build-nginx:
     executor: default
-    working_directory: ~/nginx
     steps:
       - checkout
       - setup_remote_docker:
@@ -114,7 +112,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./nginx/hooks/build
+            source ./repo/hooks/build
       - run:
           name: Update system
           command: |
@@ -129,15 +127,14 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./nginx/hooks/post_build
+            source ./repo/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./nginx/hooks/deploy
+            source ./repo/hooks/deploy
 
   build-php:
     executor: default
-    working_directory: ~/php
     steps:
       - checkout
       - setup_remote_docker:
@@ -146,7 +143,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./php/hooks/build
+            source ./repo/hooks/build
       - run:
           name: Update system
           command: |
@@ -161,15 +158,14 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./php/hooks/post_build
+            source ./repo/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./php/hooks/deploy
+            source ./repo/hooks/deploy
 
   build-redis:
     executor: default
-    working_directory: ~/redis
     steps:
       - checkout
       - setup_remote_docker:
@@ -178,7 +174,7 @@ jobs:
       - run:
           name: Building Docker
           command: |
-            source ./redis/hooks/build
+            source ./repo/hooks/build
       - run:
           name: Update system
           command: |
@@ -193,11 +189,11 @@ jobs:
       - run:
           name: Testing Docker
           command: |
-            source ./redis/hooks/post_build
+            source ./repo/hooks/post_build
       - deploy:
           name: Deploy to Docker Hub
           command: |
-            source ./redis/hooks/deploy
+            source ./repo/hooks/deploy
 
 workflows:
   version: 2
